@@ -46,6 +46,43 @@
                     </div>
 
                     <div class="flex flex-wrap">
+                        <label for="university_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('University') }}:
+                        </label>
+
+                        <select id="university_id" 
+                            class="form-select w-full @error('university_id') border-red-500 @enderror" name="university_id"
+                            value="{{ old('university_id') }}" required>
+                            @foreach ($universities as $university)
+                                <option value="{{ $university->id }}">{{ $university->name }}</option>
+                            @endforeach
+                            <option value="{{ $other->id }}">{{ $other->name }}</option>
+                        </select>
+
+                        @error('university_id')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-wrap">
+                        <label for="phone_number" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            {{ __('Phone Number') }}:
+                        </label>
+
+                        <input id="phone_number" type="text" placeholder="ex: 08xxxxxxxxxx"
+                            class="form-input w-full @error('phone_number') border-red-500 @enderror" name="phone_number"
+                            value="{{ old('phone_number') }}" required>
+
+                        @error('phone_number')
+                        <p class="text-red-500 text-xs italic mt-4">
+                            {{ $message }}
+                        </p>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-wrap">
                         <label for="password" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
                             {{ __('Password') }}:
                         </label>
@@ -84,7 +121,6 @@
                         </p>
                     </div>
                 </form>
-
             </section>
         </div>
     </div>

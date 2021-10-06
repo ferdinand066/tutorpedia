@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('university_id')->constrained();
             $table->string('name');
-            $table->string('google_id');
+            $table->string('google_id')->nullable()->default(null);
             $table->string('password');
             $table->string('email')->unique();
             $table->bigInteger('balance')->default(0);
