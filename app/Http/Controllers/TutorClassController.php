@@ -44,9 +44,10 @@ class TutorClassController extends Controller
      * @param  \App\Models\TutorClass  $tutorClass
      * @return \Illuminate\Http\Response
      */
-    public function show(TutorClass $tutorClass)
+    public function show(TutorClass $tutor)
     {
-        //
+        // $tutorClass = TutorClass::find('0783c110-d93e-46ad-bfd5-39fee47928b5');
+        return view('tutor.show', compact(['tutor']));
     }
 
     /**

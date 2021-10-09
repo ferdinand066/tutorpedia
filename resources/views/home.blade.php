@@ -1,25 +1,40 @@
 @extends('layouts.app')
-
+@section('style-script')
+    <script src="{{ asset('js/home/index.js') }}" defer></script>
+    <style>
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+    </style>
+@endsection
 @section('content')
 <!-- Page title & actions -->
-<div class="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
-    <div class="flex-1 min-w-0">
-        <h1 class="text-lg font-medium leading-6 text-gray-900 sm:truncate">
-            Home
+<div class="px-4 py-4 sm:flex sm:flex-col sm:justify-between sm:px-6 lg:px-8 gap-4">
+    <div class="flex-1 min-w-0 text-center">
+        <h1 class="text-2xl font-medium leading-6 text-gray-900 sm:truncate">
+            What to learn next
         </h1>
     </div>
-    <div class="mt-4 flex sm:mt-0 sm:ml-4">
-        <button type="button"
-            class="order-1 ml-3 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-0 sm:ml-0">
-            Share
-        </button>
-        <button type="button"
-            class="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3">
-            Create
-        </button>
+    @foreach ($majors as $major)
+    <div class="flex-1 min-w-0 mt-4">
+        <h1 class="text-xl font-medium leading-6 text-gray-900 sm:truncate my-6">
+            Recommended tutor class at {{ $major->name }}
+        </h1>
+        <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            @foreach ($data[$major->id] as $tutor_class)
+                @include('components.card.tutor', ['tutor_class' => $tutor_class, 'course' => $tutor_class->course])
+            @endforeach
+            
+            <!-- More people... -->
+          </ul>
     </div>
+    @endforeach
+    
 </div>
-<!-- Pinned projects -->
+{{-- <!-- Pinned projects -->
 <div class="px-4 mt-6 sm:px-6 lg:px-8">
     <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Pinned Projects</h2>
     <ul class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4 mt-3">
@@ -187,30 +202,21 @@
                     </td>
                     <td class="pr-6">
                         <div class="relative flex justify-end items-center">
-                            <button type="button"
-                                class="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-                                id="project-options-menu-0-button" aria-expanded="false"
-                                aria-haspopup="true">
-                                <span class="sr-only">Open options</span>
-                                <!-- Heroicon name: solid/dots-vertical -->
-                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path
-                                        d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-                                </svg>
-                            </button>
-
-                            <!--
-            Dropdown menu, show/hide based on menu state.
-
-            Entering: "transition ease-out duration-100"
-              From: "transform opacity-0 scale-95"
-              To: "transform opacity-100 scale-100"
-            Leaving: "transition ease-in duration-75"
-              From: "transform opacity-100 scale-100"
-              To: "transform opacity-0 scale-95"
-          -->
-                            <div class="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none"
+                            <div>
+                                <button type="button"
+                                    class="trigger-dropdown w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                                    id="project-options-menu-0-button" aria-expanded="false"
+                                    aria-haspopup="true">
+                                    <span class="sr-only">Open options</span>
+                                    <!-- Heroicon name: solid/dots-vertical -->
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path
+                                            d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="triggered hidden mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none"
                                 role="menu" aria-orientation="vertical"
                                 aria-labelledby="project-options-menu-0-button" tabindex="-1">
                                 <div class="py-1" role="none">
@@ -280,5 +286,5 @@
             </tbody>
         </table>
     </div>
-</div>
+</div> --}}
 @endsection
