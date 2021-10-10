@@ -36,6 +36,9 @@ class HomeController extends Controller
             })->orderBy('date')->get();
             $data[$major->id] = $tutor_classes;
         }
+
+        dd($data);
+
         return view('home', compact(['data']));
     }
 }
