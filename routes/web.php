@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LearnController;
 use App\Http\Controllers\TutorClassController;
 use App\Http\Controllers\TutorController;
 use Illuminate\Support\Facades\Auth;
@@ -33,4 +34,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('course', CourseController::class);
     Route::resource('class', TutorClassController::class);
     Route::resource('teach', TutorController::class)->only(['index']);
+    Route::resource('learn', LearnController::class)->only(['index']);
 });
