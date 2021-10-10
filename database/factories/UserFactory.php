@@ -30,8 +30,14 @@ class UserFactory extends Factory
             'google_id' => 'asd',
             'email' => $this->faker->unique()->safeEmail(),
             'password' => Hash::make('password'),
-            'phone_number' => '081213141516',
+            'phone_number' => $this->faker->phoneNumber(),
             'remember_token' => Str::random(10),
+            'social_media' => json_encode(['linkedin' => 'https://www.linkedin.com/in/ferdinand-gunawan-08aa44192/']),
+            'about' => $this->faker->realTextBetween(200, 1000),
+            'photo_url' => $this->faker->randomElement([
+                'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+                'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+            ])
         ];
     }
 

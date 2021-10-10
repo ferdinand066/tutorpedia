@@ -182,7 +182,7 @@
   </div>
 </main>
 
-<footer class="bg-gray-50" aria-labelledby="footerHeading">
+{{-- <footer class="bg-gray-50" aria-labelledby="footerHeading">
   <h2 id="footerHeading" class="sr-only">Footer</h2>
   <div class="max-w-7xl mx-auto pt-16 pb-8 px-4 sm:px-6 lg:pt-24 lg:px-8">
     <div class="mt-12 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between lg:mt-16">
@@ -227,5 +227,5 @@
       </p>
     </div>
   </div>
-</footer>
+</footer> --}}
 @endsection

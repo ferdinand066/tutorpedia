@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Major;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class CourseController extends Controller
 {
@@ -12,9 +14,29 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'major_id' => 'exists:majors,id',
+            'course_id' => 'nullable|exists:courses,id',
+        ]);
+
+        $callback = ['tutor_classes' => function($query){
+                        return $query->where('date', '>=', date('Y-m-d'))->orderBy('date');
+                    }];
+        if(isset($validated['major_id']) && isset($validated['course_id'])){
+            $course = Course::with($callback)->find($validated['course_id']);
+            return view('courses.show', compact(['course']));
+        } else if (isset($validated['major_id']) && !isset($validated['course_id'])){
+            $courses = Course::where('major_id', $validated['major_id'])
+                ->with($callback)->get();
+            return view('courses.show', compact(['courses']));
+        } else {
+            if(!str_ends_with(URL::full(), 'course')){
+                return redirect()->route('home');
+            }
+            return view('courses.index');
+        }
     }
 
     /**
@@ -46,7 +68,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+
     }
 
     /**
@@ -81,5 +103,16 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+    }
+
+    public function data(Request $request){
+        $validated = $request->validate([
+            'major_id' => 'exists:majors,id'
+        ]);
+
+        $courses = Course::where([['major_id', $validated['major_id']], ['name', '!=', 'Other']])->orderBy('name')->get();
+        $other = Course::where([['major_id', $validated['major_id']], ['name', '=', 'Other']])->orderBy('name')->get();
+
+        return response()->json([$courses, $other]);
     }
 }

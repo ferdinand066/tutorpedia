@@ -16,6 +16,7 @@ class CreateMajorsTable extends Migration
         Schema::create('majors', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
+            $table->string('photo_url');
             $table->timestamps();
         });
     }
