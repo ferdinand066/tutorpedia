@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Major;
 use App\Models\TutorClass;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -26,7 +28,6 @@ class HomeController extends Controller
     public function index()
     {
         $majors = Major::orderBy('name')->get();
-        
         $data = [];
 
         foreach($majors as $major){

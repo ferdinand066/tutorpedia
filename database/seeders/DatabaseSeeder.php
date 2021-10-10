@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TutorClassDetail;
 use App\Models\University;
 use Illuminate\Database\Seeder;
 
@@ -25,11 +26,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Others'
         ]);
 
-        \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(100)->create();
 
         $this->call([
             TutorClassSeeder::class,
-            
+            TutorClassDetailSeeder::class
         ]);
     }
 }

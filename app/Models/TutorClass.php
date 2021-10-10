@@ -19,4 +19,8 @@ class TutorClass extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function tutor_class_details(){
+        return $this->hasMany(TutorClassDetail::class);
+    }
 }

@@ -27,7 +27,9 @@ class User extends Authenticatable
         'university_id',
         'google_id',
         'phone_number',
-        'rating',
+        'social_media',
+        'about',
+        'photo_url',
         'role'
     ];
 
@@ -56,5 +58,9 @@ class User extends Authenticatable
 
     public function university(){
         return $this->belongsTo(University::class);
+    }
+
+    public function tutor_class_details(){
+        return $this->hasMany(TutorClassDetail::class);
     }
 }

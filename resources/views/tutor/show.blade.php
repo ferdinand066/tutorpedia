@@ -68,7 +68,7 @@
                         Current Participant
                       </dt>
                       <dd class="mt-1 text-xl font-semibold text-gray-900">
-                        {{ $class->start_time . ' - ' . $class->end_time }}
+                        {{ count($class->tutor_class_details) }}
                       </dd>
                     </div>
                   </dl>
@@ -78,16 +78,26 @@
         <div class="bg-white rounded shadow border-sm">
             <div class="p-6 leading-8 flex flex-col">
                 <h1 class="text-lg sm:text-xl font-bold">Description</h1>
-                <span class="leading-7">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias est quisquam delectus nesciunt harum laboriosam doloremque modi magnam recusandae facere facilis error saepe, ut reprehenderit maxime sit libero vel qui.
-                Aliquam esse officia cum aut, quas laborum velit est dolor dolorum exercitationem. Consequuntur est numquam nemo sapiente velit. Mollitia, in voluptas iure atque asperiores fugit perspiciatis fuga exercitationem? Vero, atque.
-                Voluptatibus quos facere expedita ducimus dolorum nulla repellendus inventore et. Provident quidem inventore harum earum rerum dicta laboriosam deserunt laudantium eveniet quibusdam repudiandae odit, labore, distinctio, totam in nihil molestias.
-                Fugiat porro dolore delectus natus nulla, saepe animi quibusdam et possimus laboriosam sunt velit a explicabo quod quia suscipit voluptate quas molestiae similique molestias sit corporis praesentium, error sed. Quas.
-                Aliquam, ullam esse, est qui voluptate accusamus corporis totam nisi expedita optio, placeat quibusdam aperiam voluptatibus eaque a illo dolorem animi ut vel eum! Autem ullam porro sapiente quos adipisci.
-                Sint deleniti nulla obcaecati inventore ex vitae dolores, quia tempora, quidem esse minus accusantium enim ipsam itaque hic porro! Ex hic debitis deleniti repellendus temporibus officia maiores quisquam nemo quidem.
-                Non facilis, consectetur earum molestiae maxime nobis sapiente tempore unde nam aut quae totam qui quis quisquam rerum illum iure commodi numquam odio illo excepturi impedit dignissimos. Perspiciatis, voluptatibus explicabo.
-                Neque modi magnam dolor molestiae, harum quo officiis quam ducimus quibusdam atque ipsa molestias praesentium mollitia recusandae expedita illo est? Molestias eius illum delectus nobis, asperiores excepturi dolorem facilis consequatur?
-                Praesentium aperiam temporibus nemo ullam officiis architecto, nulla corporis dolorum nobis itaque harum, minus natus veritatis neque necessitatibus laborum incidunt impedit placeat fuga voluptas! Rem, cumque dolorum? Maxime, sunt libero!
-                Provident velit eaque maxime distinctio, exercitationem sequi voluptatum facere cupiditate molestiae quibusdam ipsum iusto fugit? Eum vero iusto, temporibus porro labore voluptatibus, natus delectus neque fuga enim fugiat omnis impedit.</span>
+                <span class="leading-7">{{ $class->description }}</span>
+            </div>
+        </div>
+
+        <div class="bg-white rounded shadow border-sm">
+            <div class="p-6 leading-8 flex flex-col">
+                <h1 class="text-lg sm:text-xl font-bold">Requirement</h1>
+                <ul class="px-4 leading-8">
+                    @php
+                        $requirements = json_decode($class->requirement);
+                    @endphp
+                    @foreach ($requirements as $requirement)
+                        <li class="flex align-center gap-2">
+                            <svg class="h-5 w-5 my-auto text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                              </svg>
+                            <span>{{ $requirement }}</span>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
         </div>
     </div>
@@ -123,10 +133,10 @@
             </div>
             <div>
                 <div class="text-sm font-medium text-gray-500 truncate">
-                    User Rating
+                    About
                 </div>
-                <div class="mt-1 text-xl font-semibold text-gray-900">
-                    {{ $class->user->rating ?? 0 . ' / 5' }}
+                <div class="mt-1 text-sm text-gray-900">
+                    {{ $class->user->about }}
                 </div>
             </div>
         </div>

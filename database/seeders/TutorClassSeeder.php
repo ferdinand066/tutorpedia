@@ -20,7 +20,7 @@ class TutorClassSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         foreach($courses as $course){
-            foreach(range(1,random_int(2, 5)) as $i){
+            foreach(range(4, 15) as $i){
                 $minimum_person = random_int(1, 10);
                 TutorClass::create([
                     'course_id' => $course->id,
