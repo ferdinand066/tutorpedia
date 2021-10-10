@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\TutorClassController;
+use App\Http\Controllers\TutorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +31,6 @@ Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->nam
 Route::middleware(['auth'])->group(function () {
     Route::post('course/data', [CourseController::class, 'data'])->name('course.data');
     Route::resource('course', CourseController::class);
-    Route::resource('tutor', TutorClassController::class);
+    Route::resource('class', TutorClassController::class);
+    Route::resource('teach', TutorController::class)->only(['index']);
 });

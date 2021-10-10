@@ -93,16 +93,10 @@
                         <div class="mt-5 flex-1 h-0 overflow-y-auto">
                             <nav class="px-2">
                                 <div class="space-y-1">
-                                    <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-600 hover:text-gray-900 hover:bg-gray-50" -->
                                     <a href="{{ route('home') }}"
-                                        class="bg-gray-100 text-gray-900 group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md"
+                                        class="{{ request()->is('home') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }} group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md"
                                         aria-current="page">
-                                        <!--
-                                Heroicon name: outline/home
-                
-                                Current: "text-gray-500", Default: "text-gray-400 group-hover:text-gray-500"
-                                -->
-                                        <svg class="text-gray-500 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg"
+                                        <svg class="{{ request()->is('home') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg"
                                             fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -111,8 +105,8 @@
                                     </a>
  
                                     <a href="{{ route('course.index') }}"
-                                        class="text-gray-600 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        class="{{ request()->is('course*') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }} group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="{{ request()->is('course*') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                           </svg>
                                         Course
@@ -127,9 +121,9 @@
                                         My Learning
                                     </a>
 
-                                    <a href="#"
-                                        class="text-gray-600 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <a href="{{ route('teach.index') }}"
+                                        class="{{ request()->is('teach*') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }} text-gray-600 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="{{ request()->is('teach*') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path d="M12 14l9-5-9-5-9 5 9 5z" />
                                             <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
@@ -197,7 +191,7 @@
                     <div class="flex flex-col w-64 border-r border-gray-200 pt-5 pb-4 bg-gray-100">
                         <div class="flex items-center flex-shrink-0 px-6">
                             {{-- <img class="h-14 w-auto" src="{{ asset('title.png') }}" alt=""> --}}
-                            <span class="text-title text-indigo-800 font-bold uppercase" style="">Tutorpedia</span>
+                            <a href="{{ route('home') }}" class="text-title text-indigo-800 font-bold uppercase" style="">Tutorpedia</a>
                         </div>
                         <!-- Sidebar component, swap this element with another sidebar if you like -->
                         <div class="h-0 flex-1 flex flex-col overflow-y-auto justify-between">
@@ -247,14 +241,6 @@
                                                     tabindex="-1" id="options-menu-item-0">View profile</a>
                                                 <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
                                                     tabindex="-1" id="options-menu-item-1">Settings</a>
-                                                <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                                    tabindex="-1" id="options-menu-item-2">Notifications</a>
-                                            </div>
-                                            <div class="py-1" role="none">
-                                                <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                                    tabindex="-1" id="options-menu-item-3">Get desktop app</a>
-                                                <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                                    tabindex="-1" id="options-menu-item-4">Support</a>
                                             </div>
                                             <div class="py-1" role="none">
                                                 <a href="{{ route('logout') }}" class="text-gray-700 block px-4 py-2 text-sm"
@@ -269,14 +255,14 @@
                                     <div class="space-y-1">
                                         <!-- Current: "bg-gray-200 text-gray-900", Default: "text-gray-700 hover:text-gray-900 hover:bg-gray-50" -->
                                         <a href="{{ route('home') }}"
-                                            class="bg-gray-200 text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                                            class="{{ request()->is('home') ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50' }} group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                                             aria-current="page">
                                             <!--
                                     Heroicon name: outline/home
                     
                                     Current: "text-gray-500", Default: "text-gray-400 group-hover:text-gray-500"
                                     -->
-                                            <svg class="text-gray-500 mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg"
+                                            <svg class="{{ request()->is('home') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6" xmlns="http://www.w3.org/2000/svg"
                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -285,8 +271,8 @@
                                         </a>
 
                                         <a href="{{ route('course.index') }}"
-                                            class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            class="{{ request()->is('course*') ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50' }} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="{{ request()->is('course*') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                               </svg>
                                             Course
@@ -300,9 +286,9 @@
                                             My Learning
                                         </a>
 
-                                        <a href="#"
-                                            class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <a href="{{ route('teach.index') }}"
+                                            class="{{ request()->is('teach*') ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50' }} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="{{ request()->is('teach*') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path d="M12 14l9-5-9-5-9 5 9 5z" />
                                                 <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
@@ -417,14 +403,6 @@
                                                 tabindex="-1" id="user-menu-item-0">View profile</a>
                                             <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
                                                 tabindex="-1" id="user-menu-item-1">Settings</a>
-                                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                                tabindex="-1" id="user-menu-item-2">Notifications</a>
-                                        </div>
-                                        <div class="py-1" role="none">
-                                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                                tabindex="-1" id="user-menu-item-3">Get desktop app</a>
-                                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                                                tabindex="-1" id="user-menu-item-4">Support</a>
                                         </div>
                                         <div class="py-1" role="none">
                                             <a href="{{ route('logout') }}" class="text-gray-700 block px-4 py-2 text-sm"

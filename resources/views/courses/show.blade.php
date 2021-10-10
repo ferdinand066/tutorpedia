@@ -13,7 +13,7 @@
         </h1>
         <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($course->tutor_classes as $tutor_class)
-              @include('components.card.tutor', compact(['course', 'tutor_class']))
+              @include('components.card.class', compact(['course', 'tutor_class']))
             @endforeach
         </ul>
         @else
@@ -23,7 +23,7 @@
         <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($courses as $course)
               @foreach ($course->tutor_classes as $tutor_class)
-                @include('components.card.tutor', compact(['course', 'tutor_class']))
+                @include('components.card.class', compact(['course', 'tutor_class']))
               @endforeach
             @endforeach
         </ul>

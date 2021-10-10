@@ -23,6 +23,8 @@ class CreateTutorClassesTable extends Migration
             $table->time('end_time');
             $table->integer('minimum_person');
             $table->integer('maximum_person')->nullable();
+            $table->longText('description');
+            $table->json('requirement');
             $table->bigInteger('price');
             $table->timestamps();
         });

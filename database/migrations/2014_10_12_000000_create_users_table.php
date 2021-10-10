@@ -22,7 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->bigInteger('balance')->default(0);
             $table->string('phone_number')->nullable();
-            $table->double('rating')->nullable()->default(null);
+            $table->json('social_media');
+            $table->longText('about');
+            $table->string('photo_url');
             $table->string('role')->default('Member');
             $table->rememberToken();
             $table->timestamps();
