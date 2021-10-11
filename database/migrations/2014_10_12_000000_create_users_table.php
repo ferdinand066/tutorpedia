@@ -22,9 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->bigInteger('balance')->default(0);
             $table->string('phone_number')->nullable();
-            $table->json('social_media');
-            $table->longText('about');
-            $table->string('photo_url');
+            $table->json('social_media')->nullable()->default(null);
+            $table->longText('about')->nullable()->default(null);
+            $table->string('photo_url')->nullable()->default(null);
             $table->string('role')->default('Member');
             $table->rememberToken();
             $table->timestamps();

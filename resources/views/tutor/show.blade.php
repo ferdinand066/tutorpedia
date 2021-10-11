@@ -6,7 +6,13 @@
             <div class="w-full relative">
                 <img src="{{ $class->course->major->photo_url }}" alt="" class="w-full h-48 sm:h-72 object-cover rounded-t">
                 <div class="absolute bottom-2 right-2">
-                    <img class="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex-shrink-0" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
+                    @if($class->user->photo_url !== null)
+                        <img class="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex-shrink-0" src="{{ $class->user->photo_url }}" alt="">
+                    @else
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 sm:w-16 sm:h-16 rounded-full p-2 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                        </svg>
+                    @endif
                 </div>
             </div>
             <div class="p-6 leading-8">
@@ -17,16 +23,31 @@
                 </div>
                 <div class="flex flex-row justify-between items-center mt-3">
                     <h3 class="text-md sm:text-lg">{{ 'Rp. ' . number_format($class->price,2,",",".") }}</h3>
-                    <form action="#" method="post">
-                        <input type="hidden" name="class_id" id="class_id" value="{{ $class->id }}">
-                        <button type="submit" class="leading-5 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Add to Cart
-                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 -mr-1 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                            </svg>
-                        </button>
-                    </form>
+                    @if($can_buy)
+                        <form method="post" action="{{ route('class.detail.store') }}">
+                            @csrf
+                            <input type="hidden" name="tutor_class_id" id="class_id" value="{{ $class->id }}">
+                            <button type="submit" class="leading-5 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Add to Cart
+                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 -mr-1 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </button>
+                        </form>
+                    @else
+                        <h3 class="text-md sm:text-lg">{{ ($class->user->id === Auth::user()->id) ? 'Owner' : 'Joined' }}</h3>
+                    @endif
                 </div>
+                @if(!$can_buy)
+                <div class="mt-4">
+                    <div class="text-sm font-medium text-gray-500 truncate leading-4">
+                        Link
+                    </div>
+                    <div class="mt-1 text-xl font-semibold text-gray-900 leading-6">
+                        <a href="{{ $class->link }}">{{ $class->link }}</a>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
         <div class="bg-white rounded shadow border-sm">
@@ -105,7 +126,13 @@
         <div class="bg-white rounded shadow p-4 border-sm flex flex-col gap-4 leading-5">
             <h1 class="text-lg sm:text-xl font-bold">Tutor Information</h1>
             <div class="flex justify-center">
-                <img class="w-32 h-32 rounded-full shadow-xl" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
+                @if($class->user->photo_url !== null)
+                    <img class="w-32 h-32 rounded-full shadow-xl" src="{{ $class->user->photo_url }}" alt="">
+                @else
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 rounded-full p-3 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                    </svg>
+                @endif
             </div>
             <div>
                 <div class="text-sm font-medium text-gray-500 truncate">
@@ -136,9 +163,28 @@
                     About
                 </div>
                 <div class="mt-1 text-sm text-gray-900">
-                    {{ $class->user->about }}
+                    {{ $class->user->about ?? '-' }}
                 </div>
             </div>
+            @php
+                $socials = $class->user->social_media ?? ''; 
+            @endphp
+            @if($socials !== '')
+                @php
+                    $socials = json_decode($socials);
+                @endphp
+                <div>
+                    <div class="text-sm font-medium text-gray-500 truncate">
+                        Social Media
+                    </div>
+                    @foreach ($socials as $key => $social)
+                        <div class="mt-1 text-sm text-gray-900">
+                            <span class="capitalize">{{ $key }} : </span>
+                            <a href="{{ $social }}">{{ $social }}</a>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
         </div>
         <div class="bg-white rounded shadow p-4 border-sm flex flex-col gap-4 leading-5">
             <h1 class="text-lg sm:text-xl font-bold">Tutor Class Recommendation</h1>

@@ -205,9 +205,15 @@
                                                 aria-expanded="false" aria-haspopup="true">
                                                 <span class="flex w-full justify-between items-center">
                                                     <span class="flex min-w-0 items-center justify-between space-x-3 w-full">
+                                                        @if(Auth::user()->photo_url !== null)
                                                         <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
                                                             src="{{ Auth::user()->photo_url }}"
                                                             alt="{{ Auth::user()->name }}">
+                                                        @else
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 rounded-full p-1.5 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                                            </svg>
+                                                        @endif
                                                         <span class="flex-1 flex flex-col min-w-0 leading-5"
                                                             style="width: 100%">
                                                             <span
@@ -388,9 +394,15 @@
                                             class="trigger-dropdown max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                                             id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                             <span class="sr-only">Open user menu</span>
+                                            @if(Auth::user()->photo_url !== null)
                                             <img class="h-8 w-8 rounded-full"
                                                 src="{{ Auth::user()->photo_url }}"
                                                 alt="{{ Auth::user()->name }}">
+                                            @else
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 rounded-full p-1 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                            </svg>
+                                            @endif
                                         </button>
                                     </div>
 
@@ -434,7 +446,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form class="flex-1 flex items-center px-2 lg:ml-6 justify-center md:justify-end w-full" action="">
+                                <form class="flex-1 flex items-center px-2 lg:ml-6 justify-center md:justify-end w-full" action="{{ route('course.index') }}">
                                     <div class="max-w-lg w-full lg:max-w-xs">
                                       <label for="search" class="sr-only">Search</label>
                                       <div class="relative">

@@ -6,16 +6,16 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
         <div class="absolute inset-0">
-          <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100" alt="People working on laptops">
+          <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1616587894289-86480e533129?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Online Learning">
           <div class="absolute inset-0 bg-gradient-to-r from-purple-800 to-indigo-700" style="mix-blend-mode: multiply;"></div>
         </div>
         <div class="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
           <h1 class="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
             <span class="block text-white">Take control of your</span>
-            <span class="block text-indigo-200">customer support</span>
+            <span class="block text-indigo-200">tutor class</span>
           </h1>
           <p class="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl leading-6">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
+            Be a tutor, or a student, it's all in your hands
           </p>
           <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
             <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
@@ -41,18 +41,17 @@
           <div>
             <div>
               <span class="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600">
-                <!-- Heroicon name: outline/inbox -->
-                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
               </span>
             </div>
             <div class="mt-6">
               <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">
-                Stay on top of customer support
+                Stay on top with tutor class
               </h2>
               <p class="mt-4 text-lg text-gray-500 leading-7">
-                Semper curabitur ullamcorper posuere nunc sed. Ornare iaculis bibendum malesuada faucibus lacinia porttitor. Pulvinar laoreet sagittis viverra duis. In venenatis sem arcu pretium pharetra at. Lectus viverra dui tellus ornare pharetra.
+                Learn anytime, anywhere or with anyone. All decisions are in your hands.
               </p>
               <div class="mt-6">
                 <a href="{{ route('register') }}" class="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 leading-6">
@@ -65,7 +64,7 @@
             <blockquote>
               <div>
                 <p class="text-base text-gray-500 leading-5">
-                  &ldquo;Cras velit quis eros eget rhoncus lacus ultrices sed diam. Sit orci risus aenean curabitur donec aliquet. Mi venenatis in euismod ut.&rdquo;
+                  &ldquo;I believe that the Future belongs to those who prepare for it today.&rdquo;
                 </p>
               </div>
               <footer class="mt-3">
@@ -74,7 +73,7 @@
                     <img class="h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1509783236416-c9ad59bae472?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="">
                   </div>
                   <div class="text-base font-medium text-gray-700">
-                    Marcia Hill, Digital Marketing Manager
+                    Veronica Angel, CEO Tutorpedia
                   </div>
                 </div>
               </footer>
@@ -94,18 +93,19 @@
           <div>
             <div>
               <span class="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600">
-                <!-- Heroicon name: outline/sparkles -->
-                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
                 </svg>
               </span>
             </div>
             <div class="mt-6">
               <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">
-                Better understand your customers
+                Wide user coverage
               </h2>
               <p class="mt-4 text-lg text-gray-500 leading-7">
-                Semper curabitur ullamcorper posuere nunc sed. Ornare iaculis bibendum malesuada faucibus lacinia porttitor. Pulvinar laoreet sagittis viverra duis. In venenatis sem arcu pretium pharetra at. Lectus viverra dui tellus ornare pharetra.
+                With our extensive user network system, increase the scope of your teaching with us.
               </p>
               <div class="mt-6">
                 <a href="{{ route('register') }}v" class="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 leading-6">
@@ -137,29 +137,29 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 xl:grid xl:grid-cols-2 xl:grid-flow-col-dense xl:gap-x-8">
       <div class="relative pt-12 pb-64 sm:pt-24 sm:pb-64 xl:col-start-1 xl:pb-24">
         <h2 class="text-sm font-semibold tracking-wide uppercase">
-          <span class="bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent">Valuable Metrics</span>
+          <span class="bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent">Our Statistic</span>
         </h2>
-        <p class="mt-3 text-3xl font-extrabold text-white">Get actionable data that will help grow your business</p>
-        <p class="mt-5 text-lg text-gray-300 leading-6">Rhoncus sagittis risus arcu erat lectus bibendum. Ut in adipiscing quis in viverra tristique sem. Ornare feugiat viverra eleifend fusce orci in quis amet. Sit in et vitae tortor, massa. Dapibus laoreet amet lacus nibh integer quis. Eu vulputate diam sit tellus quis at.</p>
+        <p class="mt-3 text-3xl font-extrabold text-white">Get academic development from yourself, either as a tutor or as a student.</p>
+        <p class="mt-5 text-lg text-gray-300 leading-6">Based on our user acceptance testing, we believe that with the facilities we provide, you will get a satisfying teaching or teaching experience. Some of the data that shows us include:</p>
         <div class="mt-12 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2">
           <p>
             <span class="block text-2xl font-bold text-white">8K+</span>
-            <span class="mt-1 block text-base text-gray-300 leading-5"><span class="font-medium text-white">Companies</span> use laoreet amet lacus nibh integer quis.</span>
+            <span class="mt-1 block text-base text-gray-300 leading-5"><span class="font-medium text-white">Users</span> are joined with us.</span>
           </p>
 
           <p>
-            <span class="block text-2xl font-bold text-white">25K+</span>
-            <span class="mt-1 block text-base text-gray-300 leading-5"><span class="font-medium text-white">Countries around the globe</span> lacus nibh integer quis.</span>
+            <span class="block text-2xl font-bold text-white">6K+</span>
+            <span class="mt-1 block text-base text-gray-300 leading-5"><span class="font-medium text-white">Tutor class</span> are scheduled with us</span>
           </p>
 
           <p>
             <span class="block text-2xl font-bold text-white">98%</span>
-            <span class="mt-1 block text-base text-gray-300 leading-5"><span class="font-medium text-white">Customer satisfaction</span> laoreet amet lacus nibh integer quis.</span>
+            <span class="mt-1 block text-base text-gray-300 leading-5"><span class="font-medium text-white">Customer satisfaction</span> with our teach and learn system.</span>
           </p>
 
           <p>
-            <span class="block text-2xl font-bold text-white">12M+</span>
-            <span class="mt-1 block text-base text-gray-300 leading-5"><span class="font-medium text-white">Issues resolved</span> lacus nibh integer quis.</span>
+            <span class="block text-2xl font-bold text-white">15K+</span>
+            <span class="mt-1 block text-base text-gray-300 leading-5"><span class="font-medium text-white">Class transaction</span> make with us.</span>
           </p>
         </div>
       </div>

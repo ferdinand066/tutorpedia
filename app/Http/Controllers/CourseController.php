@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Major;
+use App\Models\TutorClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
@@ -17,8 +18,9 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $validated = $request->validate([
-            'major_id' => 'exists:majors,id',
+            'major_id' => 'nullable|exists:majors,id',
             'course_id' => 'nullable|exists:courses,id',
+            'search' => 'nullable|string'
         ]);
 
         $callback = ['tutor_classes' => function($query){
@@ -31,6 +33,12 @@ class CourseController extends Controller
             $courses = Course::where('major_id', $validated['major_id'])
                 ->with($callback)->get();
             return view('courses.show', compact(['courses']));
+        } else if (isset($validated['search'])){
+            $tutor_classes = TutorClass::where([
+                ['name', 'like', '%' . $validated['search'] . '%'],
+                ['date', '>=', date('Y-m-d')]
+            ])->orderBy('date')->get();
+            return view('courses.show', compact(['tutor_classes']));
         } else {
             if(!str_ends_with(URL::full(), 'course')){
                 return redirect()->route('home');
@@ -46,7 +54,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
