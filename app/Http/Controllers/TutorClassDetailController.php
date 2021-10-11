@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TutorClassDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TutorClassDetailController extends Controller
 {
@@ -35,7 +36,16 @@ class TutorClassDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'tutor_class_id' => 'exists:tutor_classes,id'
+        ]);
+
+        TutorClassDetail::create([
+            'tutor_class_id' => $validated['tutor_class_id'],
+            'user_id' => Auth::user()->id
+        ]);
+
+        return redirect()->route('home');
     }
 
     /**

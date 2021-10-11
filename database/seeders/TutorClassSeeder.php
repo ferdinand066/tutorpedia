@@ -31,9 +31,10 @@ class TutorClassSeeder extends Seeder
                     'end_time' => $faker->time(),
                     'minimum_person' => $minimum_person,
                     'maximum_person' => $minimum_person + random_int(1, 10),
-                    'price' => $faker->numberBetween(200, 20000) * 100,
+                    'price' => $faker->numberBetween(1, 100) * 1000,
                     'description' => $faker->realTextBetween(200, 1000),
-                    'requirement' => json_encode(['Office 360', 'Android Studio 2019'])
+                    'requirement' => json_encode(['Office 360', 'Android Studio 2019']),
+                    'link' => $faker->url()
                 ]);
             }
         }

@@ -37,8 +37,6 @@ class HomeController extends Controller
             $data[$major->id] = $tutor_classes;
         }
 
-        dd($data);
-
         return view('home', compact(['data']));
     }
 }

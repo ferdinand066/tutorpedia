@@ -12,6 +12,8 @@ class TutorClass extends Model
 
     public $incrementing = false;
 
+    protected $guarded = [];  
+
     public function course(){
         return $this->belongsTo(Course::class);
     }

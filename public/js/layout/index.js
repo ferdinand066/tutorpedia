@@ -22,4 +22,8 @@ $(function () {
         $('#major-button').find('.course-list').addClass('hidden')
         parent.find(`#major-menu-${id}`).removeClass('hidden')
     })
+
+    $('.cancel-btn').on('click', function(){
+        window.location.href = '/home'
+    })
 });

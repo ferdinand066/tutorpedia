@@ -11,7 +11,7 @@
 <div class="px-4 mt-6 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center">
         <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Closest Tutor Schedule</h2>
-        <a class="cursor-pointer inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-800 hover:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-800 sm:ml-3">
+        <a href="{{ route('class.create') }}" class="cursor-pointer inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-800 hover:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-800 sm:ml-3">
             Create Tutor Class
         </a>
     </div>
@@ -155,10 +155,16 @@
                                     @if($key == 4)
                                         @break
                                     @endif
+                                    @if($details->user->photo_url !== null)
                                     <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white"
                                         src="{{ $details->user->photo_url }}"
-                                        alt="{{ $details->user->name }}">     
-                                    @endforeach
+                                        alt="{{ $details->user->name }}">  
+                                    @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rounded-full p-1 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                    </svg>
+                                    @endif  
+                                @endforeach
                             </div>
 
                             <span class="flex-shrink-0 text-xs leading-5 font-medium">{{ (count($class->tutor_class_details) - 4 > 0) ? '+' . (count($class->tutor_class_details) - 4) : ''}}</span>
