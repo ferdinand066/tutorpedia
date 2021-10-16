@@ -15,7 +15,8 @@ class TutorController extends Controller
      */
     public function index()
     {
-        $classes = TutorClass::where('user_id', Auth::user()->id)->orderBy('date')->get();
+        $classes = TutorClass::where('user_id', Auth::user()->id)
+            ->orderBy('date')->paginate(10);
         return view('teach.index', compact(['classes']));
     }
 

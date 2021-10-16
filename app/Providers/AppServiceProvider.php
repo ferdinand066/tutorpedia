@@ -27,10 +27,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        if (!$this->app->runningInConsole()) {
+            $majors = Major::with(['courses' => function($query){
+                return $query->where('name', '!=', 'Other')->orderBy('name');
+            }])->orderBy('name')->get();
+            View::share('majors', $majors);  
+        }
 
-        $majors = Major::with(['courses' => function($query){
-            return $query->where('name', '!=', 'Other')->orderBy('name');
-        }])->orderBy('name')->get();
-        View::share('majors', $majors);  
     }
 }

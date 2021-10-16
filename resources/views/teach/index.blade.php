@@ -107,6 +107,10 @@
         @endforeach
         <!-- More projects... -->
     </ul>
+
+    @if(isset($classes))
+        {{ $classes->withQueryString()->links() }}
+    @endif
 </div>
 
 <!-- Projects table (small breakpoint and up) -->
@@ -261,6 +265,9 @@
             </tbody>
         </table>
     </div>
+    @if(isset($classes))
+        {{ $classes->withQueryString()->links() }}
+    @endif
 </div>
 @endif
 @endsection

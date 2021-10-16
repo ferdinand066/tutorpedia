@@ -16,6 +16,7 @@ class CreateTutorClassDetailsTable extends Migration
         Schema::create('tutor_class_details', function (Blueprint $table) {
             $table->foreignUuid('user_id')->constrained();
             $table->foreignUuid('tutor_class_id')->constrained();
+            $table->tinyInteger('status')->default(0)->comment('0:waiting,1:accepted');
             $table->primary(['user_id', 'tutor_class_id']);
             $table->timestamps();
         });

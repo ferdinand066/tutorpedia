@@ -28,16 +28,21 @@ class CourseController extends Controller
                     }];
         if(isset($validated['major_id']) && isset($validated['course_id'])){
             $course = Course::with($callback)->find($validated['course_id']);
-            return view('courses.show', compact(['course']));
+            $tutor_classes = $course->tutor_classes()->paginate(12);
+            return view('courses.show', compact(['tutor_classes', 'course']));
+        
         } else if (isset($validated['major_id']) && !isset($validated['course_id'])){
-            $courses = Course::where('major_id', $validated['major_id'])
-                ->with($callback)->get();
-            return view('courses.show', compact(['courses']));
+            $tutor_classes = TutorClass::whereHas('course', function($query) use ($validated){
+                return $query->where('major_id', $validated['major_id']);
+            })->where('date', '>=', date('Y-m-d'))->orderBy('date')->paginate(12);
+            $major = Major::find($validated['major_id']);
+            return view('courses.show', compact(['tutor_classes', 'major']));
+        
         } else if (isset($validated['search'])){
             $tutor_classes = TutorClass::where([
                 ['name', 'like', '%' . $validated['search'] . '%'],
                 ['date', '>=', date('Y-m-d')]
-            ])->orderBy('date')->get();
+            ])->orderBy('date')->paginate(12);
             return view('courses.show', compact(['tutor_classes']));
         } else {
             if(!str_ends_with(URL::full(), 'course')){

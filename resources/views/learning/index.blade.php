@@ -12,12 +12,9 @@
     <div class="flex justify-between items-center">
         <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Closest Learning Schedule</h2>
     </div>
-    @if(count($classes) > 0)
+    @if(count($top_classes) > 0)
     <ul class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4 mt-3">
-        @foreach ($classes as $key => $class)
-        @if($key == 4)
-            @break
-        @endif
+        @foreach ($top_classes as $key => $class)
             <li class="relative col-span-1 flex shadow-sm rounded-md">
                 <div
                     class="flex-shrink-0 flex items-center justify-center w-16 bg-pink-600 text-white text-sm font-medium rounded-l-md">
@@ -104,6 +101,9 @@
         @endforeach
         <!-- More projects... -->
     </ul>
+    @if(isset($classes))
+        {{ $classes->withQueryString()->links() }}
+    @endif
 </div>
 
 <!-- Projects table (small breakpoint and up) -->
@@ -257,6 +257,11 @@
                 <!-- More projects... -->
             </tbody>
         </table>
+    </div>
+    <div class="px-6 py-3">
+        @if(isset($classes))
+            {{ $classes->withQueryString()->links() }}
+        @endif
     </div>
 </div>
 @endif

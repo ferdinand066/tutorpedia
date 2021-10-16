@@ -18,8 +18,9 @@ class LearnController extends Controller
     {
         $list = TutorClassDetail::where('user_id', Auth::user()->id)->pluck('tutor_class_id')->toArray();
         
-        $classes = TutorClass::whereIn('id', $list)->orderBy('date')->get();
-        return view('learning.index', compact(['classes']));
+        $top_classes = TutorClass::whereIn('id', $list)->orderBy('date')->limit(4)->get();
+        $classes = TutorClass::whereIn('id', $list)->orderBy('date')->paginate(10);
+        return view('learning.index', compact(['top_classes', 'classes']));
     }
 
     /**
