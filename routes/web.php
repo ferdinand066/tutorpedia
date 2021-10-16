@@ -35,6 +35,10 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('class')->as('class.')->group(function(){
         Route::resource('detail', TutorClassDetailController::class);
     });
+
+    Route::prefix('teach')->as('teach.')->group(function(){
+        Route::get('pending', [TutorController::class, 'pending'])->name('pending');
+    });
     Route::resource('course', CourseController::class);
     Route::resource('class', TutorClassController::class);
     Route::resource('teach', TutorController::class)->only(['index']);

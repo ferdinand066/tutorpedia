@@ -16,10 +16,17 @@
                 </div>
             </div>
             <div class="p-6 leading-8">
-                <h1 class="text-lg sm:text-2xl font-bold">{{$class->name}}</h1>
+                <div class="flex justify-between content-center">
+                    <h1 class="text-lg sm:text-2xl font-bold">{{$class->name}}</h1>
+                    <a class="cursor-pointer flex content-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                    </a>
+                </div>
                 <div class="flex flex-row justify-between">
                     <a>by {{ $class->user->name }}</a>
-                    <a class="inline-flex items-center px-2.5 rounded-full text-xs font-medium bg-green-100 text-green-800 capitalize leading-4">{{ $class->course->name }}</a>
+                    <span>{{ $class->course->name }}</span>
                 </div>
                 <div class="flex flex-row justify-between items-center mt-3">
                     <h3 class="text-md sm:text-lg">{{ 'Rp. ' . number_format($class->price,2,",",".") }}</h3>
@@ -38,15 +45,25 @@
                         <h3 class="text-md sm:text-lg">{{ ($class->user->id === Auth::user()->id) ? 'Owner' : 'Joined' }}</h3>
                     @endif
                 </div>
+                @if(!$class->status)
+                    <div class="mt-4">
+                        <div class="text-sm font-medium text-gray-500 truncate leading-4">
+                            Status
+                        </div>
+                        <div class="mt-1 text-xl font-semibold text-gray-900 leading-6">
+                            Pending
+                        </div>
+                    </div>
+                @endif
                 @if(!$can_buy)
-                <div class="mt-4">
-                    <div class="text-sm font-medium text-gray-500 truncate leading-4">
-                        Link
+                    <div class="mt-4">
+                        <div class="text-sm font-medium text-gray-500 truncate leading-4">
+                            Link
+                        </div>
+                        <div class="mt-1 text-xl font-semibold text-gray-900 leading-6">
+                            <a href="{{ $class->link }}">{{ $class->link }}</a>
+                        </div>
                     </div>
-                    <div class="mt-1 text-xl font-semibold text-gray-900 leading-6">
-                        <a href="{{ $class->link }}">{{ $class->link }}</a>
-                    </div>
-                </div>
                 @endif
             </div>
         </div>

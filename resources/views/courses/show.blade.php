@@ -12,19 +12,20 @@
                 Recommended tutor for {{ $course->name }} ( {{ $course->major->name }} )
             </h1>
             <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                @foreach ($course->tutor_classes as $tutor_class)
+                @foreach ($tutor_classes as $tutor_class)
                 @include('components.card.class', compact(['course', 'tutor_class']))
                 @endforeach
             </ul>
-        @elseif(!isset($tutor_classes))
+        @elseif(isset($major))
             <h1 class="text-xl font-medium leading-6 text-gray-900 sm:truncate my-6">
-                All course for {{ $courses[0]->major->name }}
+                All course for {{ $major->name }}
             </h1>
             <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                @foreach ($courses as $course)
-                @foreach ($course->tutor_classes as $tutor_class)
+                @foreach ($tutor_classes as $tutor_class)
+                    @php
+                        $course = $tutor_class->course;
+                    @endphp
                     @include('components.card.class', compact(['course', 'tutor_class']))
-                @endforeach
                 @endforeach
             </ul>
         @else
@@ -41,5 +42,8 @@
             </ul>
         @endif
     </div>
+    @if(isset($tutor_classes))
+        {{ $tutor_classes->withQueryString()->links() }}
+    @endif
 </div>
 @endsection

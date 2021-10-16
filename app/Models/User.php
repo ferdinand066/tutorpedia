@@ -63,4 +63,12 @@ class User extends Authenticatable
     public function tutor_class_details(){
         return $this->hasMany(TutorClassDetail::class);
     }
+
+    public function students(){
+        return $this->hasMany(Follower::class, 'student_id', 'id');
+    }
+
+    public function tutors(){
+        return $this->hasMany(Follower::class, 'tutor_id', 'id');
+    }
 }

@@ -6,7 +6,7 @@ use App\Models\Major;
 use App\Models\TutorClass;
 use App\Models\TutorClassDetail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\{Auth, Gate};
 
 class TutorClassController extends Controller
 {
@@ -70,6 +70,10 @@ class TutorClassController extends Controller
      */
     public function show(TutorClass $class)
     {
+        if(($class->status == 0 && !Gate::allows('manage-data') && !Gate::allows('update-self-data', $class))){
+            return abort(404);
+        }
+
         $can_buy = false;
         $recommendations = TutorClass::inRandomOrder()
             ->limit(2)
