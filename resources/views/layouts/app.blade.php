@@ -149,32 +149,17 @@
                                         Subscription
                                     </h3>
                                     <div class="mt-1 space-y-1" role="group" aria-labelledby="teams-headline">
-                                        <a href="#"
-                                            class="group flex items-center px-3 py-2 text-base leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50">
-                                            <span class="w-2.5 h-2.5 mr-4 bg-indigo-500 rounded-full"
-                                                aria-hidden="true"></span>
-                                            <span class="truncate">
-                                                Engineering
-                                            </span>
-                                        </a>
-
-                                        <a href="#"
-                                            class="group flex items-center px-3 py-2 text-base leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50">
-                                            <span class="w-2.5 h-2.5 mr-4 bg-green-500 rounded-full"
-                                                aria-hidden="true"></span>
-                                            <span class="truncate">
-                                                Human Resources
-                                            </span>
-                                        </a>
-
-                                        <a href="#"
-                                            class="group flex items-center px-3 py-2 text-base leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50">
-                                            <span class="w-2.5 h-2.5 mr-4 bg-yellow-500 rounded-full"
-                                                aria-hidden="true"></span>
-                                            <span class="truncate">
-                                                Customer Success
-                                            </span>
-                                        </a>
+                                        @foreach ($followers as $key => $follower)
+                                            <a href="#"
+                                                class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
+                                                <div class="mr-3 w-8 h-8">
+                                                    <img src="{{ $follower->tutor->photo_url }}" alt="" class="w-8 h-8 rounded-full" aria-hidden="true">
+                                                </div>
+                                                <span class="truncate leading-5" style="width: calc(100% - 3rem)">
+                                                    {{ $follower->tutor->name }}
+                                                </span>
+                                            </a>
+                                        @endforeach
                                     </div>
                                 </div>
                             </nav>
@@ -314,6 +299,7 @@
                                             Recent
                                         </a>
                                     </div>
+                                    @if(count($followers) > 0)
                                     <div class="mt-8">
                                         <!-- Secondary navigation -->
                                         <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"
@@ -321,34 +307,20 @@
                                             Subscription
                                         </h3>
                                         <div class="mt-1 space-y-1" role="group" aria-labelledby="teams-headline">
+                                            @foreach ($followers as $key => $follower)
                                             <a href="#"
                                                 class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
-                                                <span class="w-2.5 h-2.5 mr-4 bg-indigo-500 rounded-full"
-                                                    aria-hidden="true"></span>
-                                                <span class="truncate leading-5">
-                                                    Engineering
+                                                <div class="mr-3 w-8 h-8">
+                                                    <img src="{{ $follower->tutor->photo_url }}" alt="" class="w-8 h-8 rounded-full" aria-hidden="true">
+                                                </div>
+                                                <span class="truncate leading-5" style="width: calc(100% - 3rem)">
+                                                    {{ $follower->tutor->name }}
                                                 </span>
                                             </a>
-
-                                            <a href="#"
-                                                class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
-                                                <span class="w-2.5 h-2.5 mr-4 bg-green-500 rounded-full"
-                                                    aria-hidden="true"></span>
-                                                <span class="truncate leading-5">
-                                                    Human Resources
-                                                </span>
-                                            </a>
-
-                                            <a href="#"
-                                                class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
-                                                <span class="w-2.5 h-2.5 mr-4 bg-yellow-500 rounded-full"
-                                                    aria-hidden="true"></span>
-                                                <span class="truncate leading-5">
-                                                    Customer Success
-                                                </span>
-                                            </a>
+                                            @endforeach
                                         </div>
                                     </div>
+                                    @endif
                                 </nav>
                             </div>
                             @guest

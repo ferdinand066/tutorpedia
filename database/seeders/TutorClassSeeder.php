@@ -23,7 +23,7 @@ class TutorClassSeeder extends Seeder
             foreach(range(4, 15) as $i){
                 $minimum_person = random_int(1, 10);
                 $random_int = random_int(0, 20);
-                $random_int = ($random_int > 5) ? 0 : 1;
+                $random_int = ($random_int > 5) ? 1 : 0;
                 TutorClass::create([
                     'course_id' => $course->id,
                     'name' => $faker->text(50),

@@ -16,10 +16,12 @@ class LearnController extends Controller
      */
     public function index()
     {
-        $list = TutorClassDetail::where('user_id', Auth::user()->id)->pluck('tutor_class_id')->toArray();
+        $list = TutorClassDetail::where([['user_id', Auth::user()->id], ['status', '=', 1]])->pluck('tutor_class_id')->toArray();
+
+        $query = TutorClass::whereIn('id', $list)->where([['date', '>=', date('Y-m-d')], ['status', '=', 1]])->orderBy('date');
         
-        $top_classes = TutorClass::whereIn('id', $list)->orderBy('date')->limit(4)->get();
-        $classes = TutorClass::whereIn('id', $list)->orderBy('date')->paginate(10);
+        $top_classes = $query->limit(4)->get();
+        $classes = $query->paginate(10);
         return view('learning.index', compact(['top_classes', 'classes']));
     }
 
