@@ -27,7 +27,7 @@
                     @endif
                 </div>
                 <div class="flex flex-row justify-between">
-                    <a>by {{ $class->user->name }}</a>
+                    <a href="{{ route('profile.show', ['profile' => $class->user]) }}">by {{ $class->user->name }}</a>
                     <span>{{ $class->course->name }}</span>
                 </div>
                 <div class="flex flex-row justify-between items-center mt-3">

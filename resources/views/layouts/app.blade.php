@@ -243,7 +243,7 @@
                                             tabindex="-1">
                                             <div class="py-1" role="none">
                                                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                                <a href="profile" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
+                                                <a href="{{ route('profile.index') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
                                                     tabindex="-1" id="options-menu-item-0">View profile</a>
                                                 <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
                                                     tabindex="-1" id="options-menu-item-1">Settings</a>
@@ -408,7 +408,7 @@
                                         tabindex="-1">
                                         <div class="py-1" role="none">
                                             <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
+                                            <a href="{{ route('profile.index') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
                                                 tabindex="-1" id="user-menu-item-0">View profile</a>
                                             <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
                                                 tabindex="-1" id="user-menu-item-1">Settings</a>
