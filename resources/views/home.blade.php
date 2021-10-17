@@ -1,14 +1,6 @@
 @extends('layouts.app')
 @section('style-script')
     <script src="{{ asset('js/home/index.js') }}" defer></script>
-    <style>
-        .line-clamp-3 {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;  
-            overflow: hidden;
-        }
-    </style>
 @endsection
 @section('content')
 <!-- Page title & actions -->

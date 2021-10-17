@@ -71,4 +71,8 @@ class User extends Authenticatable
     public function tutors(){
         return $this->hasMany(Follower::class, 'tutor_id', 'id');
     }
+
+    public function class_reject_reasons(){
+        return $this->hasMany(ClassRejectReason::class);
+    }
 }

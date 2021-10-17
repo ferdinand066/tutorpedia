@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Major;
 use App\Models\TutorClass;
 use App\Models\TutorClassDetail;
@@ -86,6 +87,13 @@ class TutorClassController extends Controller
         if (count($tutorClassDetail) === 0 && $class->user->id !== Auth::user()->id){
             $can_buy = true;
         }
+
+        $class = TutorClass::with(['class_reject_reasons' => function($query){
+            return $query->orderBy('created_at');
+        }])->find($class->id);
+
+
+
         return view('tutor.show', compact(['class', 'recommendations', 'can_buy']));
     }
 
@@ -95,9 +103,15 @@ class TutorClassController extends Controller
      * @param  \App\Models\TutorClass  $tutorClass
      * @return \Illuminate\Http\Response
      */
-    public function edit(TutorClass $tutor)
+    public function edit(TutorClass $class)
     {
-        //
+        if(($class->status == 1 || (!Gate::allows('manage-data') && !Gate::allows('update-self-data', $class)))){
+            return abort(404);
+        }
+
+        $courses = Course::where('major_id', $class->course->major_id)->get();
+
+        return view('teach.edit', compact(['class', 'courses']));
     }
 
     /**

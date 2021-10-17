@@ -31,7 +31,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TutorClassSeeder::class,
             TutorClassDetailSeeder::class,
-            FollowerSeeder::class
+            FollowerSeeder::class,
+            ClassRejectReasonSeeder::class
         ]);
     }
 }
