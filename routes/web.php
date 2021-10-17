@@ -7,6 +7,7 @@ use App\Http\Controllers\LearnController;
 use App\Http\Controllers\TutorClassController;
 use App\Http\Controllers\TutorClassDetailController;
 use App\Http\Controllers\TutorController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,4 +53,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('class', TutorClassController::class);
     Route::resource('teach', TutorController::class)->only(['index']);
     Route::resource('learn', LearnController::class)->only(['index']);
+    Route::get('profile', [UserController::class, 'index'])->name('profile');
 });
