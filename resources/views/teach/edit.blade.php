@@ -1,11 +1,6 @@
 @extends('layouts.app')
 @section('style-script')
   <script src="{{ asset('js/course/search-course.js') }}" defer></script>
-  <script>
-    $(function () {
-      $('#major').trigger('change')
-    });
-  </script>
   <script src="{{ asset('js/teach/requirement.js') }}" defer></script>
 @endsection
 @section('content')
@@ -30,7 +25,7 @@
                   Tutor Class Link
                 </label>
                 <div class="mt-1 flex rounded-md shadow-sm">
-                  <input required type="url" name="link" id="link" class="form-input focus:ring-indigo-800 focus:border-indigo-800 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300" placeholder="https://www.example.com">
+                  <input value="{{ old('link') ?? $class->link }}" required type="url" name="link" id="link" class="form-input focus:ring-indigo-800 focus:border-indigo-800 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300" placeholder="https://www.example.com">
                 </div>
                 <p class="mt-2 text-sm text-gray-500">
                     Please enter a valid tutor class link. Invalid links can result in a ban within a certain period
@@ -43,7 +38,7 @@
                     Class Title
                   </label>
                   <div class="mt-1 flex rounded-md shadow-sm">
-                    <input required type="text" name="name" id="name" class="form-input focus:ring-indigo-800 focus:border-indigo-800 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300" placeholder="Introduction to Java">
+                    <input value="{{ old('name') ?? $class->name }}"  required type="text" name="name" id="name" class="form-input focus:ring-indigo-800 focus:border-indigo-800 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300" placeholder="Introduction to Java">
                   </div>
                 </div>
             </div>
@@ -52,7 +47,7 @@
                     <label for="major_id" class="block text-sm font-medium text-gray-700">Major</label>
                     <select id="major" name="major_id" class="form-select mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-800 focus:border-indigo-800 sm:text-sm">
                         @foreach ($majors as $major)
-                            <option value="{{ $major->id }}">{{ $major->name }}</option>
+                            <option value="{{ $major->id }}" {{ ($major->id === $class->course->major_id ) ? 'selected' : '' }} >{{ $major->name }}</option>
                         @endforeach
                     </select>
                   </div>
@@ -60,8 +55,8 @@
                   <div class="col-span-6 sm:col-span-3">
                     <label for="course_id" class="block text-sm font-medium text-gray-700">Course</label>
                     <select id="course" name="course_id" class="form-select mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-800 focus:border-indigo-800 sm:text-sm">
-                        @foreach ($majors[0]->courses as $course)
-                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                        @foreach ($courses as $course)
+                            <option value="{{ $course->id }}" {{ ($course->id === $class->course_id ) ? 'selected' : '' }}>{{ $course->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -76,7 +71,7 @@
                   <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
                     Rp.
                   </span>
-                  <input required type="number" name="price" id="price" min="1000" step="1000" class="form-input focus:ring-indigo-800 focus:border-indigo-800 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="Introduction to Java">
+                  <input value="{{ old('price') ?? $class->price }}" required type="number" name="price" id="price" min="1000" step="1000" class="form-input focus:ring-indigo-800 focus:border-indigo-800 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="Introduction to Java">
                 </div>
               </div>
             </div>
@@ -98,27 +93,27 @@
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                 <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
-                <input required type="date" name="date" id="date" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input value="{{ old('date') ?? $class->date }}" required type="date" name="date" id="date" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
   
               <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label for="start_time" class="block text-sm font-medium text-gray-700">Time Start</label>
-                <input required type="time" name="start_time" id="start_time" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input value="{{ old('start_time') ?? $class->start_time }}" required type="time" name="start_time" id="start_time" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
   
               <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label for="end_time" class="block text-sm font-medium text-gray-700">Time End</label>
-                <input required type="time" name="end_time" id="end_time" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input value="{{ old('end_time') ?? $class->end_time }}" required type="time" name="end_time" id="end_time" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                 <label for="minimum_person" class="block text-sm font-medium text-gray-700">Minimum Participant</label>
-                <input required type="number" name="minimum_person" min="1" id="minimum_person" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input value="{{ old('minimum_person') ?? $class->minimum_person }}" required type="number" name="minimum_person" min="1" id="minimum_person" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                 <label for="maximum_person" class="block text-sm font-medium text-gray-700">Maximum Participant</label>
-                <input required type="number" name="maximum_person" min="0" id="maximum_person" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input value="{{ old('maximum_person') ?? $class->maximum_person }}" required type="number" name="maximum_person" min="0" id="maximum_person" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6">
@@ -126,7 +121,7 @@
                   Description
                 </label>
                 <div class="mt-1">
-                  <textarea required id="description" name="description" rows="3" class="form-input shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Java is one of the most famous programming language.."></textarea>
+                  <textarea required id="description" name="description" rows="3" class="form-input shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Java is one of the most famous programming language..">{{ old('description') ?? $class->description }}</textarea>
                 </div>
                 <p class="mt-2 text-sm text-gray-500">
                   Brief description about your course.

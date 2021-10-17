@@ -24,5 +24,5 @@ $(function () {
         );
     })
 
-    $('#major').trigger('change')
+    
 });

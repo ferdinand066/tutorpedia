@@ -27,7 +27,12 @@
             font-size: 1.65rem;
             line-height: 2rem;
         }
-
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/layout/index.js') }}" defer></script>
@@ -93,6 +98,16 @@
                         <div class="mt-5 flex-1 h-0 overflow-y-auto">
                             <nav class="px-2">
                                 <div class="space-y-1">
+                                    @can('manage-data')
+                                    <a href="{{ route('admin.class.pending') }}"
+                                        class="{{ request()->is('admin*') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }} group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md"
+                                        aria-current="page">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="{{ request()->is('admin*') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                        Admin
+                                    </a>
+                                    @endcan
                                     <a href="{{ route('home') }}"
                                         class="{{ request()->is('home') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }} group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md"
                                         aria-current="page">
@@ -245,6 +260,16 @@
                                 <nav class="px-3 mt-6">
                                     <div class="space-y-1">
                                         <!-- Current: "bg-gray-200 text-gray-900", Default: "text-gray-700 hover:text-gray-900 hover:bg-gray-50" -->
+                                        @can('manage-data')
+                                        <a href="{{ route('admin.class.pending') }}"
+                                            class="{{ request()->is('admin*') ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50' }} group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                                            aria-current="page">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="{{ request()->is('admin/*') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                            </svg>
+                                            Admin
+                                        </a>
+                                        @endcan
                                         <a href="{{ route('home') }}"
                                             class="{{ request()->is('home') ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50' }} group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                                             aria-current="page">

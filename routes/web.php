@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\TutorClassController as AdminTutorClassController;
+use App\Http\Controllers\ClassRejectReasonController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LearnController;
 use App\Http\Controllers\TutorClassController;
@@ -39,6 +41,13 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('teach')->as('teach.')->group(function(){
         Route::get('pending', [TutorController::class, 'pending'])->name('pending');
     });
+
+    Route::prefix('admin')->as('admin.')->middleware('can:manage-data')->group(function(){
+        Route::get('class/pending', [AdminTutorClassController::class, 'pending'])->name('class.pending');
+        Route::resource('class', AdminTutorClassController::class);
+        Route::resource('reject', ClassRejectReasonController::class);
+    });
+
     Route::resource('course', CourseController::class);
     Route::resource('class', TutorClassController::class);
     Route::resource('teach', TutorController::class)->only(['index']);

@@ -25,4 +25,8 @@ class TutorClass extends Model
     public function tutor_class_details(){
         return $this->hasMany(TutorClassDetail::class);
     }
+
+    public function class_reject_reasons(){
+        return $this->hasMany(ClassRejectReason::class);
+    }
 }
