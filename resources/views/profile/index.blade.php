@@ -7,7 +7,7 @@
             <img class="w-32 h-32 rounded-full shadow-xl" src="{{ Auth::user()->photo_url }}" alt="">
            
         </div>
-        <div class="leading-5 flex flex-col justify-center">
+        <div class="leading-6 flex flex-col justify-center">
             {{-- Name --}}
             <div class="text-xl">
                 {{ Auth::user()->name }}
@@ -34,7 +34,7 @@
         About
        </div>
         
-       <div class="leading-6 text-xs p-3 object-cover bg-gray-200 rounded-t rounded-b">
+       <div class="leading-6 text-xs p-3 object-cover bg-gray-100 rounded-t rounded-b">
         {{ Auth::user()->about }}
        </div>
     </div>
@@ -42,18 +42,19 @@
 
 
 
-<div class="px-4 py-4 w-full flex flex-col sm:flex-row sm:px-6 lg:px-8 gap-10">
-    <div class="flex w-full">
+<div class="px-4 py-4 w-full flex flex-col sm:flex-row sm:px-6 lg:px-8">
+    <div class="flex w-full space-x-5">
+
         {{-- Phone --}}
         <div class="flex-1 text-sm font-semibold">
-            Phone Number
+            <div class="my-3">Phone Number</div>
             <div class="text-xs px-3 py-3 object-cover bg-gray-100 rounded-t rounded-b">
                 {{ Auth::user()->phone_number }}
             </div>
         </div>
         {{-- Univerity --}}
-        <div class="flex-1 text-sm px-3 font-semibold">
-            University
+        <div class="flex-1 text-sm font-semibold">
+            <div class="my-3">University</div>
             <div class="text-xs px-3 py-3 object-cover bg-gray-100 rounded-t rounded-b">
                 {{ Auth::user()->university->name }}
             </div>
@@ -61,27 +62,31 @@
     </div>
 </div>
 
-<div class="px-4 py-4 flex flex-col sm:flex-row sm:px-6 lg:px-8 gap-10">
-    <div class="w-1/2 text-sm font-semibold">
-        Social Media
-        <div class="text-xs px-3 py-3 object-cover bg-gray-100 rounded-t rounded-b">
-            
-            @php
-             $socials = Auth::user()->social_media ?? ''; 
-            @endphp
-            @if($socials !== '')
+<div class="px-4 py-4 flex flex-col sm:flex-row sm:px-6 lg:px-8 gap-5">
+    <div class="flex w-full space-x-5">
+        <div class="flex-1 text-sm font-semibold">
+            <div class="my-3">Social Media</div>
+            <div class="text-xs px-3 py-3 object-cover bg-gray-100 rounded-t rounded-b leading-5">
                 @php
-                    $socials = json_decode($socials);
+                 $socials = Auth::user()->social_media ?? ''; 
                 @endphp
-                    @foreach ($socials as $key => $social)
-                        <div class="mt-1 text-xs text-gray-900">
-                            <span class="capitalize">{{ $key }} : </span>
-                            <a href="{{ $social }}">{{ $social }}</a>
-                        </div>
-                    @endforeach
-            @endif
+                @if($socials !== '')
+                    @php
+                        $socials = json_decode($socials);
+                    @endphp
+                        @foreach ($socials as $key => $social)
+                            <div class="text-xs text-gray-900">
+                                <span class="capitalize">{{ $key }} : </span>
+                                <a href="{{ $social }}">{{ $social }}</a>
+                            </div>
+                        @endforeach
+                @endif
+            </div>
+        </div>
+        <div class="hidden md:flex flex-1 text-sm font-semibold">
         </div>
     </div>
+
 </div>
 
 <div class="px-4 py-4 flex flex-col sm:px-6 lg:px-8 gap-10">
@@ -89,7 +94,7 @@
         Active Class
     </div>
     <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        @foreach (Auth::user()->tutor_classes as $tutor_class)
+        @foreach (Auth::user()->active_classes as $tutor_class)
             @include('components.card.class', ['tutor_class' => $tutor_class, 'course' => $tutor_class->course])
         @endforeach
         

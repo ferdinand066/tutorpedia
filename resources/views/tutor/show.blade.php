@@ -194,7 +194,7 @@
     <div class="sm:w-1/3 flex flex-col gap-4">
         <div class="bg-white rounded shadow p-4 border-sm flex flex-col gap-4 leading-5">
             <h1 class="text-lg sm:text-xl font-bold">Tutor Information</h1>
-            <div class="flex justify-center">
+            <div class="flex content-center justify-center">
                 @if($class->user->photo_url !== null)
                     <img class="w-32 h-32 rounded-full shadow-xl" src="{{ $class->user->photo_url }}" alt="">
                 @else
@@ -203,6 +203,24 @@
                     </svg>
                 @endif
             </div>
+            @if (canSubscribe($class->user_id))
+                <form class="flex content-center justify-center" action="{{ route('subscribe.store') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="tutor_id" value="{{ $class->user->id }}">
+                    <button type="submit" class="uppercase cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Subscribe
+                    </button>
+                </form>
+            @elseif (Auth::user()->id !== $class->user_id)
+                <form class="flex content-center justify-center" action="{{ route('subscribe.destroy', ['subscribe' => $class->user]) }}" method="post">
+                    @method('delete')
+                    @csrf
+                    <button type="submit" class="uppercase cursor-pointer inline-flex items-center px-4 py-2 border text-white bg-gray-400 border-gray-400 shadow-sm text-sm font-medium rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Unsubscribe
+                    </button>
+                </form>
+            @endif
+            
             <div>
                 <div class="text-sm font-medium text-gray-500 truncate">
                     Name

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\TutorClassController as AdminTutorClassController
 use App\Http\Controllers\ClassRejectReasonController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LearnController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TutorClassController;
 use App\Http\Controllers\TutorClassDetailController;
 use App\Http\Controllers\TutorController;
@@ -54,4 +55,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('teach', TutorController::class)->only(['index']);
     Route::resource('learn', LearnController::class)->only(['index']);
     Route::resource('profile', UserController::class);
+    Route::resource('subscribe', SubscribeController::class);
 });

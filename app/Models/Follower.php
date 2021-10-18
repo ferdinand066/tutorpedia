@@ -11,6 +11,8 @@ class Follower extends Model
 
     public $incrementing = false;
 
+    protected $guarded = [];
+
     public function tutor(){
         return $this->belongsTo(User::class, 'tutor_id', 'id');
     }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follower;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class SubscribeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('profile.index');
+        //
     }
 
     /**
@@ -35,27 +37,36 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'tutor_id' => 'exists:users,id'
+        ]);
+
+        Follower::create([
+            'tutor_id' => $validated['tutor_id'],
+            'student_id' => Auth::user()->id
+        ]);
+
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Follower  $follower
      * @return \Illuminate\Http\Response
      */
-    public function show(User $profile)
+    public function show(Follower $follower)
     {
-        return view('profile.show', compact(['profile']));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Follower  $follower
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Follower $follower)
     {
         //
     }
@@ -64,34 +75,24 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Follower  $follower
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Follower $follower)
     {
-        $validated = $request->validate([
-            'university_id' => 'exists:universities,id',
-            'name' => 'required',
-            'email' => 'email|required|unique:users,email,' . $user->id,
-            'phone_number' => 'required',
-            'about' => 'required',
-            'social_media' => 'array',
-            'social_media.*' => 'required|string|distinct',
-        ]);
-
-        $user->update($validated);
-
-        return redirect()->back();
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Follower  $follower
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $subscribe)
     {
-        //
+        Follower::where([['tutor_id', $subscribe->id], ['student_id', Auth::user()->id]])->delete();
+
+        return redirect()->back();
     }
 }

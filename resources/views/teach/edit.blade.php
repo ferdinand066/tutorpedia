@@ -7,7 +7,8 @@
 
 
 
-<form class="space-y-6 px-4 mt-6 sm:px-6 lg:px-8 leading-6" id="create-class" method="post" action="{{ route('class.store') }}">
+<form class="space-y-6 px-4 mt-6 sm:px-6 lg:px-8 leading-6" id="create-class" method="post" action="{{ route('class.update', $class) }}">
+  @method('patch')
   @csrf
     <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
       <div class="md:grid md:grid-cols-3 md:gap-6">
@@ -98,12 +99,12 @@
   
               <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label for="start_time" class="block text-sm font-medium text-gray-700">Time Start</label>
-                <input value="{{ old('start_time') ?? $class->start_time }}" required type="time" name="start_time" id="start_time" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input value="{{ old('start_time') ?? date('H:i', strtotime($class->start_time)) }}" required type="time" name="start_time" id="start_time" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
   
               <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label for="end_time" class="block text-sm font-medium text-gray-700">Time End</label>
-                <input value="{{ old('end_time') ?? $class->end_time }}" required type="time" name="end_time" id="end_time" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input value="{{ old('end_time') ?? date('H:i', strtotime($class->end_time)) }}" required type="time" name="end_time" id="end_time" class="form-input mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
               </div>
 
               <div class="col-span-6 sm:col-span-3 lg:col-span-3">
@@ -131,7 +132,17 @@
               <div class="col-span-6 sm:col-span-6 lg:col-span-6">
                 <label for="requirement_insert" class="block text-sm font-medium text-gray-700">Requirement</label>
                 <div id="spec-container">
-                  
+                  @php
+                    $requirements = json_decode($class->requirement)
+                  @endphp
+                  @foreach ($requirements as $req)
+                    <span class="requirement-items my-1 gap-2 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 capitalize leading-4">
+                      <div>{{ $req }}</div>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </span>
+                  @endforeach
                 </div>
                 <div class="flex flex-row">
                   <input type="text" name="requirement_insert" id="requirement_insert" class="form-input mt-1 focus:ring-indigo-800 focus:border-indigo-800 flex-1 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300">
@@ -151,7 +162,7 @@
         Cancel
       </button>
       <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        Create class
+        Update class
       </button>
     </div>
 </form>
