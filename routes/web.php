@@ -35,4 +35,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('class', TutorClassController::class);
     Route::resource('teach', TutorController::class)->only(['index']);
     Route::resource('learn', LearnController::class)->only(['index']);
+    Route::get('/money', [\App\Http\Controllers\MoneyController::class, 'index']);
 });
