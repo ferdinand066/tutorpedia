@@ -100,7 +100,7 @@
                         </div>
                     </td>
                     <td class="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
-                        {{ date('M d, Y', strtotime($class->date))  }}
+                        {{ (count($class->last_reject) > 0) ? date('M d, Y', strtotime($class->last_reject[0]->created_at)) : '-' }}
                     </td>
                     <td
                         class="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">

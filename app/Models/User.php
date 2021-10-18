@@ -53,7 +53,11 @@ class User extends Authenticatable
     ];
 
     public function tutor_classes(){
-        return $this->hasMany(TutorClass::class);
+        return $this->hasMany(TutorClass::class)->orderBy('date');
+    }
+
+    public function active_classes(){
+        return $this->hasMany(TutorClass::class)->where([['status', 1], ['date', '>=', date('Y-m-d')]])->orderBy('date');
     }
 
     public function university(){

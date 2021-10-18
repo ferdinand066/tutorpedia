@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TutorClassRequest;
 use App\Models\Course;
 use App\Models\Major;
 use App\Models\TutorClass;
@@ -37,23 +38,9 @@ class TutorClassController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TutorClassRequest $request)
     {
-        $validated = $request->validate([
-            'link' => 'required|active_url',
-            'name' => 'required',
-            'major_id' => 'exists:majors,id',
-            'course_id' => 'exists:courses,id',
-            'price' => 'required|integer|regex:/^[1-9]+[0-9]*000$/',
-            'date' => 'required|date_format:Y-m-d|after:' . date('Y-m-d'),
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
-            'minimum_person' => 'required|integer',
-            'maximum_person' => 'required|integer|gt:minimum_person',
-            'description' => 'required|string',
-            'requirement' => 'required|array|min:1',
-            'requirement.*' => 'required|string|distinct',
-        ]);
+        $validated = $request->validated();
         $requirement = json_encode($validated['requirement']);
         $validated['requirement'] = $requirement;
         $validated['user_id'] = Auth::user()->id;
@@ -76,6 +63,7 @@ class TutorClassController extends Controller
         }
 
         $can_buy = false;
+
         $recommendations = TutorClass::inRandomOrder()
             ->limit(2)
             ->where([['course_id', $class->course_id], ['id', '!=', $class->id]])
@@ -121,9 +109,16 @@ class TutorClassController extends Controller
      * @param  \App\Models\TutorClass  $tutorClass
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TutorClass $tutorClass)
+    public function update(TutorClassRequest $request, TutorClass $class)
     {
-        //
+        $validated = $request->validated();
+        $requirement = json_encode($validated['requirement']);
+        $validated['requirement'] = $requirement;
+        $validated['user_id'] = $class->user_id;
+        unset($validated['major_id']);
+
+        $class->update($validated);
+        return redirect()->route('teach.index');
     }
 
     /**
