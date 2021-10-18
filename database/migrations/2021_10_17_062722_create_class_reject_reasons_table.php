@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTutorClassDetailsTable extends Migration
+class CreateClassRejectReasonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateTutorClassDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tutor_class_details', function (Blueprint $table) {
-            $table->foreignUuid('user_id')->constrained();
+        Schema::create('class_reject_reasons', function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->foreignUuid('tutor_class_id')->constrained();
-            $table->tinyInteger('status')->default(0)->comment('0:waiting,1:accepted');
-            $table->primary(['user_id', 'tutor_class_id']);
+            $table->foreignUuid('user_id')->constrained();
+            $table->longText('description');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateTutorClassDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tutor_class_details');
+        Schema::dropIfExists('class_reject_reasons');
     }
 }

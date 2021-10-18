@@ -1,9 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\TutorClassController as AdminTutorClassController;
+use App\Http\Controllers\ClassRejectReasonController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LearnController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TutorClassController;
+use App\Http\Controllers\TutorClassDetailController;
 use App\Http\Controllers\TutorController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,9 +36,25 @@ Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->nam
 
 Route::middleware(['auth'])->group(function () {
     Route::post('course/data', [CourseController::class, 'data'])->name('course.data');
+    Route::prefix('class')->as('class.')->group(function(){
+        Route::resource('detail', TutorClassDetailController::class);
+    });
+
+    Route::prefix('teach')->as('teach.')->group(function(){
+        Route::get('pending', [TutorController::class, 'pending'])->name('pending');
+    });
+
+    Route::prefix('admin')->as('admin.')->middleware('can:manage-data')->group(function(){
+        Route::get('class/pending', [AdminTutorClassController::class, 'pending'])->name('class.pending');
+        Route::resource('class', AdminTutorClassController::class);
+        Route::resource('reject', ClassRejectReasonController::class);
+    });
+
     Route::resource('course', CourseController::class);
     Route::resource('class', TutorClassController::class);
     Route::resource('teach', TutorController::class)->only(['index']);
     Route::resource('learn', LearnController::class)->only(['index']);
     Route::get('/money', [\App\Http\Controllers\MoneyController::class, 'index']);
+    Route::resource('profile', UserController::class);
+    Route::resource('subscribe', SubscribeController::class);
 });

@@ -25,7 +25,9 @@ class CreateTutorClassesTable extends Migration
             $table->integer('maximum_person')->nullable();
             $table->longText('description');
             $table->json('requirement');
+            $table->string('link');
             $table->bigInteger('price');
+            $table->tinyInteger('status')->default(0)->comment('0:waiting, 1:accepted');
             $table->timestamps();
         });
     }

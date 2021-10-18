@@ -1,49 +1,16 @@
 @extends('layouts.app')
-@php
-    function getInitial($string){
-        $list = explode(" ", $string);
-        return strtoupper((count($list) > 1) ? $list[0][0] . $list[count($list) - 1][0] : $list[0][0]);
-    }
-@endphp
-
 @section('content')
-<!-- Pinned projects -->
+@include('components.navbar.admin')
 <div class="px-4 mt-6 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center">
-        <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Closest Tutor Schedule</h2>
+        <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Confirmed Tutor Schedule</h2>
         <div>
-            <a href="{{ route('teach.pending') }}" class="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3">
-                Pending Tutor Class
-            </a>
-            <a href="{{ route('class.create') }}" class="cursor-pointer inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-800 hover:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-800 sm:ml-3">
-                Create Tutor Class
+            <a href="{{ route('admin.class.pending') }}" class="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3">
+                Pending Confirmed Class
             </a>
         </div>
     </div>
-    @if(count($top_classes) > 0)
-    <ul class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4 mt-3">
-        @foreach ($top_classes as $key => $class)
-        @if($key == 4)
-            @break
-        @endif
-            <li class="relative col-span-1 flex shadow-sm rounded-md">
-                <div
-                    class="flex-shrink-0 flex items-center justify-center w-16 bg-pink-600 text-white text-sm font-medium rounded-l-md">
-                    {{ getInitial($class->name) }}
-                </div>
-                <div
-                    class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
-                    <div class="flex-1 px-4 py-2 text-sm truncate leading-5">
-                        <a href="{{ route('class.show', $class->id) }}" class="text-gray-900 font-medium hover:text-gray-600">
-                            {{ $class->name }}
-                        </a>
-                        <p class="text-gray-500">{{ count($class->tutor_class_details) }} Members</p>
-                    </div>
-                </div>
-            </li>
-            @endforeach
-    </ul>
-    @else
+    @if(count($classes) == 0)
     <h1 class="flex-1 text-gray-500 text-2xl font-medium uppercase text-center my-20">You haven't make any class in current period</h1>
     @endif
 </div>
@@ -97,8 +64,12 @@
                         <span class="lg:pl-2">Class</span>
                     </th>
                     <th
-                        class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Members
+                        class="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <span class="lg:pl-2">Created By</span>
+                    </th>
+                    <th
+                        class="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Checked at
                     </th>
                     <th
                         class="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -122,27 +93,11 @@
                             </a>
                         </div>
                     </td>
-                    <td class="px-6 py-3 text-sm text-gray-500 font-medium">
-                        <div class="flex items-center space-x-2">
-                            <div class="flex flex-shrink-0 -space-x-1">
-                                @foreach ($class->tutor_class_details as $key => $details)
-                                    @if($key == 4)
-                                        @break
-                                    @endif
-                                    @if($details->user->photo_url !== null)
-                                    <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white"
-                                        src="{{ $details->user->photo_url }}"
-                                        alt="{{ $details->user->name }}">  
-                                    @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rounded-full p-1 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                                    </svg>
-                                    @endif  
-                                @endforeach
-                            </div>
-
-                            <span class="flex-shrink-0 text-xs leading-5 font-medium">{{ (count($class->tutor_class_details) - 4 > 0) ? '+' . (count($class->tutor_class_details) - 4) : ''}}</span>
-                        </div>
+                    <td class="hidden md:table-cell px-6 py-3 text-sm text-gray-500 text-right">
+                        <span class="whitespace-nowrap line-clamp-3">{{ $class->user->name }}</span>
+                    </td>
+                    <td class="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
+                        {{ date('M d, Y', strtotime($class->date))  }}
                     </td>
                     <td
                         class="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
@@ -155,9 +110,12 @@
             </tbody>
         </table>
     </div>
-    @if(isset($classes))
-        {{ $classes->withQueryString()->links() }}
-    @endif
+    <div class="p-6 sm:p-8">
+        @if(isset($classes))
+            {{ $classes->withQueryString()->links() }}
+        @endif
+    </div>  
 </div>
 @endif
+
 @endsection

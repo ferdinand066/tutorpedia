@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TutorClassDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class TutorClassDetailController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class TutorClassDetailController extends Controller
      */
     public function index()
     {
-        //
+        return view('profile.index');
     }
 
     /**
@@ -36,36 +35,27 @@ class TutorClassDetailController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'tutor_class_id' => 'exists:tutor_classes,id'
-        ]);
-
-        TutorClassDetail::create([
-            'tutor_class_id' => $validated['tutor_class_id'],
-            'user_id' => Auth::user()->id
-        ]);
-
-        return redirect()->route('home');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TutorClassDetail  $tutorClassDetail
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(TutorClassDetail $tutorClassDetail)
+    public function show(User $profile)
     {
-        //
+        return view('profile.show', compact(['profile']));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TutorClassDetail  $tutorClassDetail
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(TutorClassDetail $tutorClassDetail)
+    public function edit(User $user)
     {
         //
     }
@@ -74,21 +64,33 @@ class TutorClassDetailController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TutorClassDetail  $tutorClassDetail
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TutorClassDetail $tutorClassDetail)
+    public function update(Request $request, User $user)
     {
-        //
+        $validated = $request->validate([
+            'university_id' => 'exists:universities,id',
+            'name' => 'required',
+            'email' => 'email|required|unique:users,email,' . $user->id,
+            'phone_number' => 'required',
+            'about' => 'required',
+            'social_media' => 'array',
+            'social_media.*' => 'required|string|distinct',
+        ]);
+
+        $user->update($validated);
+
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TutorClassDetail  $tutorClassDetail
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TutorClassDetail $tutorClassDetail)
+    public function destroy(User $user)
     {
         //
     }

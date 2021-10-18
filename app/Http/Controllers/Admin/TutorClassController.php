@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\TutorClassDetail;
+use App\Http\Controllers\Controller;
+use App\Models\TutorClass;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class TutorClassDetailController extends Controller
+class TutorClassController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class TutorClassDetailController extends Controller
      */
     public function index()
     {
-        //
+        $classes = TutorClass::where([['status', '=', 1], ['date', '>=', date('Y-m-d')]])->orderBy('date')->paginate(10);
+        return view('admin.class.index', compact(['classes']));
     }
 
     /**
@@ -36,25 +37,16 @@ class TutorClassDetailController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'tutor_class_id' => 'exists:tutor_classes,id'
-        ]);
-
-        TutorClassDetail::create([
-            'tutor_class_id' => $validated['tutor_class_id'],
-            'user_id' => Auth::user()->id
-        ]);
-
-        return redirect()->route('home');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TutorClassDetail  $tutorClassDetail
+     * @param  \App\Models\TutorClass  $tutorClass
      * @return \Illuminate\Http\Response
      */
-    public function show(TutorClassDetail $tutorClassDetail)
+    public function show(TutorClass $tutorClass)
     {
         //
     }
@@ -62,10 +54,10 @@ class TutorClassDetailController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\TutorClassDetail  $tutorClassDetail
+     * @param  \App\Models\TutorClass  $tutorClass
      * @return \Illuminate\Http\Response
      */
-    public function edit(TutorClassDetail $tutorClassDetail)
+    public function edit(TutorClass $tutorClass)
     {
         //
     }
@@ -74,22 +66,30 @@ class TutorClassDetailController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TutorClassDetail  $tutorClassDetail
+     * @param  \App\Models\TutorClass  $tutorClass
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TutorClassDetail $tutorClassDetail)
+    public function update(Request $request, TutorClass $class)
     {
-        //
+        $class->update([
+            'status' => 1
+        ]);
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TutorClassDetail  $tutorClassDetail
+     * @param  \App\Models\TutorClass  $tutorClass
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TutorClassDetail $tutorClassDetail)
+    public function destroy(TutorClass $tutorClass)
     {
         //
+    }
+
+    public function pending(){
+        $classes = TutorClass::where([['status', '=', 0], ['date', '>=', date('Y-m-d')]])->orderBy('date')->paginate(10);
+        return view('admin.class.pending', compact(['classes']));
     }
 }

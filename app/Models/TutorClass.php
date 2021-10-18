@@ -12,6 +12,8 @@ class TutorClass extends Model
 
     public $incrementing = false;
 
+    protected $guarded = [];  
+
     public function course(){
         return $this->belongsTo(Course::class);
     }
@@ -22,5 +24,13 @@ class TutorClass extends Model
 
     public function tutor_class_details(){
         return $this->hasMany(TutorClassDetail::class);
+    }
+
+    public function class_reject_reasons(){
+        return $this->hasMany(ClassRejectReason::class)->orderBy('created_at');
+    }
+
+    public function last_reject(){
+        return $this->hasMany(ClassRejectReason::class)->latest('created_at');
     }
 }

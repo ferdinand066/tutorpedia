@@ -15,73 +15,25 @@ class TutorController extends Controller
      */
     public function index()
     {
-        $classes = TutorClass::where('user_id', Auth::user()->id)->orderBy('date')->get();
-        return view('teach.index', compact(['classes']));
+        $top_classes = TutorClass::where([
+            ['user_id', Auth::user()->id],
+            ['status', '=', 1],
+            ['date', '>=', date('Y-m-d')]
+        ])->limit(4)->get();
+        $classes = $this->get_classes(1);
+        return view('teach.index', compact(['classes', 'top_classes']));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function pending(){
+        $classes = $this->get_classes(0);
+        return view('teach.pending', compact(['classes']));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TutorClass $teach)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function get_classes($status){
+        return TutorClass::where([
+            ['user_id', Auth::user()->id],
+            ['status', '=', $status],
+            ['date', '>=', date('Y-m-d')]
+        ])->orderBy('date')->paginate(10);
     }
 }

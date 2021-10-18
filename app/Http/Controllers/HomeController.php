@@ -33,11 +33,9 @@ class HomeController extends Controller
         foreach($majors as $major){
             $tutor_classes = TutorClass::limit(6)->whereHas('course', function ($query) use ($major) {
                 $query->where('major_id','=', $major->id);
-            })->orderBy('date')->get();
+            })->where([['date', '>=', date('Y-m-d')], ['status', '=', 1]])->orderBy('date')->get();
             $data[$major->id] = $tutor_classes;
         }
-
-        // dd($data);
 
         return view('home', compact(['data']));
     }
