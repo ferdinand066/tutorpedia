@@ -79,4 +79,12 @@ class User extends Authenticatable
     public function class_reject_reasons(){
         return $this->hasMany(ClassRejectReason::class);
     }
+
+    public function deposit(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function accepted_deposit(){
+        return $this->belongsTo(User::class, 'admin_id', 'id');
+    }
 }

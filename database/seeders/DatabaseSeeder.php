@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\TutorClassDetail;
 use App\Models\University;
+use App\Models\Withdraw;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,24 +16,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            UniversitySeeder::class,
-            MajorSeeder::class,
-            CourseSeeder::class,
+        // $this->call([
+        //     UniversitySeeder::class,
+        //     MajorSeeder::class,
+        //     CourseSeeder::class,
             
-        ]);
+        // ]);
 
-        University::create([
-            'name' => 'Others'
-        ]);
+        // University::create([
+        //     'name' => 'Others'
+        // ]);
 
-        \App\Models\User::factory(100)->create();
+        // \App\Models\User::factory(100)->create();
+
+        // $this->call([
+        //     TutorClassSeeder::class,
+        //     TutorClassDetailSeeder::class,
+        //     FollowerSeeder::class,
+        // ]);
 
         $this->call([
-            TutorClassSeeder::class,
-            TutorClassDetailSeeder::class,
-            FollowerSeeder::class,
-            ClassRejectReasonSeeder::class
+            // ClassRejectReasonSeeder::class,
+            DepositSeeder::class,
+            WithdrawSeeder::class
         ]);
     }
 }

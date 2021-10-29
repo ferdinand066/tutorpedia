@@ -6,13 +6,13 @@ use App\Models\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Deposit extends Model
+class Withdraw extends Model
 {
     use HasFactory, HasUuid;
 
-    protected $guarded = [];
-
     public $incrementing = false;
+
+    protected $guarded = [];
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');

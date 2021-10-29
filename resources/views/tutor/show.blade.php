@@ -266,8 +266,8 @@
                     </div>
                     @foreach ($socials as $key => $social)
                         <div class="mt-1 text-sm text-gray-900">
-                            <span class="capitalize">{{ $key }} : </span>
-                            <a href="{{ $social }}">{{ $social }}</a>
+                            <span class="capitalize font-medium">{{ $key }} : </span>
+                            <a class="break-all" href="{{ $social }}">{{ $social }}</a>
                         </div>
                     @endforeach
                 </div>

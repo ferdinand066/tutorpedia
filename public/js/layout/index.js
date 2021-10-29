@@ -26,4 +26,8 @@ $(function () {
     $('.cancel-btn').on('click', function(){
         window.location.href = '/home'
     })
+
+    setTimeout(() => {
+        $('.pop-up').remove();
+    }, 2000);
 });

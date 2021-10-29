@@ -9,9 +9,6 @@
   <script src="{{ asset('js/teach/requirement.js') }}" defer></script>
 @endsection
 @section('content')
-
-
-
 <form class="space-y-6 px-4 mt-6 sm:px-6 lg:px-8 leading-6" id="create-class" method="post" action="{{ route('class.store') }}">
   @csrf
     <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
@@ -76,7 +73,7 @@
                   <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
                     Rp.
                   </span>
-                  <input required type="number" name="price" id="price" min="1000" step="1000" class="form-input focus:ring-indigo-800 focus:border-indigo-800 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="Introduction to Java">
+                  <input required type="number" name="price" id="price" min="1000" step="1000" class="form-input focus:ring-indigo-800 focus:border-indigo-800 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300" placeholder="0">
                 </div>
               </div>
             </div>

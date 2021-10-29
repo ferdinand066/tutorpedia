@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\University;
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class WithdrawController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('profile.index');
+        //
     }
 
     /**
@@ -43,48 +43,46 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Withdraw  $withdraw
      * @return \Illuminate\Http\Response
      */
-    public function show(User $profile)
+    public function show(Withdraw $withdraw)
     {
-        return view('profile.show', compact(['profile']));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Withdraw  $withdraw
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $profile)
+    public function edit(Withdraw $withdraw)
     {
-        if($profile->id !== Auth::user()->id) return redirect()->route('home');
-        $universities = University::where('name', '!=', 'Others')->orderBy('name')->get();
-        $other = University::where('name', '=', 'Others')->first();
-        return view('profile.edit', compact(['universities', 'other']));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Withdraw  $withdraw
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Withdraw $withdraw)
     {
         $validated = $request->validate([
-            'university_id' => 'exists:universities,id',
-            'name' => 'required',
-            'email' => 'email|required|unique:users,email,' . $user->id,
-            'phone_number' => 'required',
-            'about' => 'required',
-            'social_media' => 'array',
-            'social_media.*' => 'required|string|distinct',
+            'status' => 'between:0,1'
         ]);
 
-        $user->update($validated);
+        $withdraw->update([
+            'admin_id' => Auth::user()->id,
+            'status' => $validated['status']
+        ]);
+
+        if ($validated['status'] == 0){
+            updateUserBalance($withdraw->user, $withdraw->balance * 100 / 80);
+        }
 
         return redirect()->back();
     }
@@ -92,11 +90,16 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Withdraw  $withdraw
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Withdraw $withdraw)
     {
         //
+    }
+
+    public function pending(){
+        $withdraws = Withdraw::whereNull('admin_id')->orderBy('created_at')->paginate(10);
+        return view('admin.withdraw.index', compact(['withdraws']));
     }
 }

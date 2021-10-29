@@ -85,7 +85,7 @@
                         $socials = json_decode($socials);
                     @endphp
                         @foreach ($socials as $key => $social)
-                            <div class="text-xs text-gray-900">
+                            <div class="text-xs text-gray-900 w-full">
                                 <span class="capitalize">{{ $key }} : </span>
                                 <a href="{{ $social }}">{{ $social }}</a>
                             </div>
