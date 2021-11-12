@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use App\Models\TutorClass;
 use App\Models\TutorClassDetail;
 use Illuminate\Http\Request;
@@ -26,6 +27,13 @@ class TutorClassDetailController extends Controller
         if (updateUserBalance(Auth::user(), $tutor_class->price * -1)){
             TutorClassDetail::create([
                 'tutor_class_id' => $validated['tutor_class_id'],
+                'user_id' => Auth::user()->id
+            ]);
+
+            Transaction::create([
+                'detail_id' => $validated['tutor_class_id'],
+                'balance' => $tutor_class->price,
+                'description' => 'Class Member',
                 'user_id' => Auth::user()->id
             ]);
     

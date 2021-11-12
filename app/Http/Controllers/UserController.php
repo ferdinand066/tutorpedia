@@ -72,19 +72,31 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $profile)
     {
         $validated = $request->validate([
             'university_id' => 'exists:universities,id',
             'name' => 'required',
-            'email' => 'email|required|unique:users,email,' . $user->id,
             'phone_number' => 'required',
             'about' => 'required',
-            'social_media' => 'array',
-            'social_media.*' => 'required|string|distinct',
+            'social_media_key' => 'array',
+            'social_media_key.*' => 'required|string|distinct',
+            'social_media_value' => 'array',
+            'social_media_value.*' => 'required|string|distinct',
         ]);
 
-        $user->update($validated);
+        $data = [];
+
+        foreach($validated['social_media_key'] as $idx => $val){
+            $data[$val] = $validated['social_media_value'][$idx];
+        }
+
+        unset($validated['social_media_key']);
+        unset($validated['social_media_value']);
+
+        $validated['social_media'] = json_encode($data);
+
+        $profile->update($validated);
 
         return redirect()->back();
     }

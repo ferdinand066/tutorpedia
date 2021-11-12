@@ -49,7 +49,9 @@
     </script>
 @endsection
 @section('content')
-<form class="space-y-6 px-4 mt-6 sm:px-6 lg:px-8 leading-6">
+<form class="space-y-6 px-4 mt-6 sm:px-6 lg:px-8 leading-6" method="post" action="{{ route('profile.update', ['profile' => Auth::user()]) }}" enctype="multipart/form-data">
+  @method('patch')
+  @csrf
   <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
     <div>
       <div>

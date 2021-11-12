@@ -8,6 +8,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\LearnController;
 use App\Http\Controllers\SubscribeController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TutorClassController;
 use App\Http\Controllers\TutorClassDetailController;
 use App\Http\Controllers\TutorController;
@@ -68,4 +69,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('withdraw', WithdrawController::class)->only(['index', 'store']);
     Route::resource('profile', UserController::class);
     Route::resource('subscribe', SubscribeController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('transaction', TransactionController::class);
 });

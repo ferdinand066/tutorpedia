@@ -16,27 +16,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call([
-        //     UniversitySeeder::class,
-        //     MajorSeeder::class,
-        //     CourseSeeder::class,
+        $this->call([
+            UniversitySeeder::class,
+            MajorSeeder::class,
+            CourseSeeder::class,
             
-        // ]);
+        ]);
 
-        // University::create([
-        //     'name' => 'Others'
-        // ]);
+        University::create([
+            'name' => 'Others'
+        ]);
 
-        // \App\Models\User::factory(100)->create();
-
-        // $this->call([
-        //     TutorClassSeeder::class,
-        //     TutorClassDetailSeeder::class,
-        //     FollowerSeeder::class,
-        // ]);
+        \App\Models\User::factory(100)->create();
 
         $this->call([
-            // ClassRejectReasonSeeder::class,
+            TutorClassSeeder::class,
+            TutorClassDetailSeeder::class,
+            FollowerSeeder::class,
+        ]);
+
+        $this->call([
+            ClassRejectReasonSeeder::class,
             DepositSeeder::class,
             WithdrawSeeder::class
         ]);

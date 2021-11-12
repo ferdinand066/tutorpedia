@@ -24,6 +24,8 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $random = random_int(0, 10);
+        $role = ($random < 2) ? 'Admin' : 'Member';
         return [
             'university_id' => University::inRandomOrder()->first()->id,
             'name' => $this->faker->name(),
@@ -34,6 +36,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'social_media' => json_encode(['linkedin' => 'https://www.linkedin.com/in/ferdinand-gunawan-08aa44192/']),
             'about' => $this->faker->realTextBetween(200, 1000),
+            'role' => $role,
             'photo_url' => $this->faker->randomElement([
                 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
                 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',

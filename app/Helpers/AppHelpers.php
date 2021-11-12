@@ -3,6 +3,7 @@
 use App\Models\Follower;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 if(!function_exists('canSubscribe')){
     function canSubscribe($id){
@@ -22,5 +23,10 @@ if(!function_exists('updateUserBalance')){
     }
 }
 
-
+if(!function_exists('getPicture')){
+    function getPicture($folder, $file){
+        if (Storage::exists('public/' . $folder . '/' . $file)) return Storage::url('public/' . $folder . '/' . $file);
+        return $file;
+    }
+}
 

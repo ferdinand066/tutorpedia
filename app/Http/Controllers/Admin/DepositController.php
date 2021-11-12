@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Deposit;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -84,6 +85,13 @@ class DepositController extends Controller
 
         if ($validated['status'] == 1){
             updateUserBalance($deposit->user, $deposit->balance);
+
+            Transaction::create([
+                'detail_id' => $deposit->id,
+                'balance' => $deposit->balance,
+                'description' => 'Deposit',
+                'user_id' => $deposit->user_id
+            ]);
         }
 
         return redirect()->back();

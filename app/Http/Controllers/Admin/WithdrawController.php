@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -82,6 +83,13 @@ class WithdrawController extends Controller
 
         if ($validated['status'] == 0){
             updateUserBalance($withdraw->user, $withdraw->balance * 100 / 80);
+        } else {     
+            Transaction::create([
+                'detail_id' => $withdraw->id,
+                'balance' => $withdraw->balance * 100 / 80,
+                'description' => 'Withdraw',
+                'user_id' => Auth::user()->id
+            ]);
         }
 
         return redirect()->back();

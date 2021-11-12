@@ -92,7 +92,15 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                         <div class="flex-shrink-0 h-10 w-10">
-                        <img class="h-10 w-10 rounded-full" src="{{ $withdraw->user->photo_url }}" alt="">
+                        @if($withdraw->user->photo_url !== null)
+                        <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
+                            src="{{ $withdraw->user->photo_url }}"
+                            alt="{{ $withdraw->user->name }}">
+                        @else
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 rounded-full p-1.5 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                        @endif
                         </div>
                         <div class="ml-4 leading-5">
                           <div class="text-sm font-medium text-gray-900">

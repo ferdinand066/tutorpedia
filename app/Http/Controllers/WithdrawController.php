@@ -61,8 +61,6 @@ class WithdrawController extends Controller
 
         Withdraw::create($validated);
 
-
-
         return redirect()->back();
     }
 
