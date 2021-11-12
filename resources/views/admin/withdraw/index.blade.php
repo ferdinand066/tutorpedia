@@ -18,7 +18,7 @@
       <div class="flex flex-col bg-white rounded-lg shadow">
         <div class="flex flex-row px-4 items-center">
           <div class="w-16 h-16 p-0.5">
-            <img src="{{ $withdraw->user->photo_url }}" alt="" class="rounded-full">
+            <img src="{{ getPicture('profile', $withdraw->user->photo_url) }}" alt="" class="rounded-full">
           </div>
           <div class="m-4 truncate flex flex-col leading-6" style="width: calc(100% - 4rem)">
             <span class="truncate font-semibold">{{ $withdraw->user->name }}</span>
@@ -63,7 +63,7 @@
 <div class="hidden mt-8 sm:block">
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="flex flex-col">
-    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="-my-2 overflow-x-auto">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
           <table class="min-w-full divide-y divide-gray-200">
@@ -94,7 +94,7 @@
                         <div class="flex-shrink-0 h-10 w-10">
                         @if($withdraw->user->photo_url !== null)
                         <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
-                            src="{{ $withdraw->user->photo_url }}"
+                            src="{{ getPicture('profile', $withdraw->user->photo_url) }}"
                             alt="{{ $withdraw->user->name }}">
                         @else
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 rounded-full p-1.5 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">

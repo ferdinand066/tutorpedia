@@ -146,7 +146,7 @@
                                         Teaching List
                                     </a>
 
-                                    <a href="#"
+                                    <a href="{{ route('transaction.index') }}"
                                         class="text-gray-600 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md">
                                         <!-- Heroicon name: outline/clock -->
                                         <svg class="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6"
@@ -155,7 +155,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
-                                        Recent
+                                        Transaction
                                     </a>
                                 </div>
                                 <div class="mt-8">
@@ -168,7 +168,7 @@
                                             <a href="{{ route('profile.show', ['profile' => $follower->tutor]) }}"
                                                 class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
                                                 <div class="mr-3 w-8 h-8">
-                                                    <img src="{{ $follower->tutor->photo_url }}" alt="" class="w-8 h-8 rounded-full" aria-hidden="true">
+                                                    <img src="{{ getPicture('profile', $follower->tutor->photo_url) }}" alt="" class="w-8 h-8 rounded-full" aria-hidden="true">
                                                 </div>
                                                 <span class="truncate leading-5" style="width: calc(100% - 3rem)">
                                                     {{ $follower->tutor->name }}
@@ -207,7 +207,7 @@
                                                     <span class="flex min-w-0 items-center justify-between space-x-3 w-full">
                                                         @if(Auth::user()->photo_url !== null)
                                                         <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
-                                                            src="{{ Auth::user()->photo_url }}"
+                                                            src="{{ getPicture('profile', Auth::user()->photo_url) }}"
                                                             alt="{{ Auth::user()->name }}">
                                                         @else
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 rounded-full p-1.5 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
@@ -318,7 +318,7 @@
                                             Teaching List
                                         </a>
 
-                                        <a href="#"
+                                        <a href="{{ route('transaction.index') }}"
                                             class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                                             <!-- Heroicon name: outline/clock -->
                                             <svg class="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6"
@@ -327,7 +327,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
-                                            Recent
+                                            Transaction
                                         </a>
                                     </div>
                                     @if(count($followers) > 0)
@@ -342,7 +342,7 @@
                                             <a href="{{ route('profile.show', ['profile' => $follower->tutor]) }}"
                                                 class="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
                                                 <div class="mr-3 w-8 h-8">
-                                                    <img src="{{ $follower->tutor->photo_url }}" alt="" class="w-8 h-8 rounded-full" aria-hidden="true">
+                                                    <img src="{{ getPicture('profile', $follower->tutor->photo_url) }}" alt="" class="w-8 h-8 rounded-full" aria-hidden="true">
                                                 </div>
                                                 <span class="truncate leading-5" style="width: calc(100% - 3rem)">
                                                     {{ $follower->tutor->name }}
@@ -399,7 +399,7 @@
                                             <span class="sr-only">Open user menu</span>
                                             @if(Auth::user()->photo_url !== null)
                                             <img class="h-8 w-8 rounded-full"
-                                                src="{{ Auth::user()->photo_url }}"
+                                                src="{{ getPicture('profile', Auth::user()->photo_url)  }}"
                                                 alt="{{ Auth::user()->name }}">
                                             @else
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 rounded-full p-1 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">

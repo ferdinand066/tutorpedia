@@ -4,7 +4,7 @@
      
         <div class="justify-between">
             {{-- input photos --}}
-            <img class="w-32 h-32 rounded-full shadow-xl" src="{{ $profile->photo_url }}" alt="">
+            <img class="w-32 h-32 rounded-full shadow-xl" src="{{ getPicture('profile', $profile->photo_url) }}" alt="">
            
         </div>
         <div class="leading-6 flex flex-col justify-center">

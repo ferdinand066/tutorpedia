@@ -120,7 +120,7 @@
                                     @endif
                                     @if($details->user->photo_url !== null)
                                     <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white"
-                                        src="{{ $details->user->photo_url }}"
+                                        src="{{ getPicture('profile', $details->user->photo_url) }}"
                                         alt="{{ $details->user->name }}">  
                                     @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rounded-full p-1 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">

@@ -6,6 +6,7 @@ use App\Models\University;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -77,6 +78,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'university_id' => 'exists:universities,id',
             'name' => 'required',
+            'photo_url' => 'image',
             'phone_number' => 'required',
             'about' => 'required',
             'social_media_key' => 'array',
@@ -95,6 +97,12 @@ class UserController extends Controller
         unset($validated['social_media_value']);
 
         $validated['social_media'] = json_encode($data);
+
+        $filename = time() . "_" . Auth::user()->id . '.' . $request->photo_url->getClientOriginalExtension();
+
+        $request->photo_url->storeAs('public/profile', $filename);
+
+        $validated['photo_url'] = $filename;
 
         $profile->update($validated);
 

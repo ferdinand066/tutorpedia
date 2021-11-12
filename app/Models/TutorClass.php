@@ -33,4 +33,8 @@ class TutorClass extends Model
     public function last_reject(){
         return $this->hasMany(ClassRejectReason::class)->latest('created_at');
     }
+
+    public function transactions(){
+        return $this->hasMany(Transaction::class, 'detail_id', 'id');
+    }
 }

@@ -45,6 +45,20 @@
                 let id = $(this).attr('id').split('_')[1]
                 $(`#label_${id},#key_${id},#value_${id}`).remove()
             })
+
+            $('#change-button').on('click', function(){
+              $('#photo-url').trigger('click')
+            })
+
+            $('#photo-url').on('change', function(event){
+              let url = URL.createObjectURL(event.target.files[0]);
+              $('#image-container').children().get(0).remove()
+              $('#image-container').prepend(
+                `
+                <img class="w-12 h-12 rounded-full shadow-xl" src="${url}" alt="">
+                `
+              )
+            })
         });
     </script>
 @endsection
@@ -69,20 +83,22 @@
               Photo
             </label>
             <div class="mt-1 sm:mt-0 sm:col-span-2">
-              <div class="flex items-center">
+              <div class="flex items-center" id="image-container">
                 @if(Auth::user()->photo_url !== null)
-                    <img class="w-12 h-12 rounded-full shadow-xl" src="{{ Auth::user()->photo_url }}" alt="">
+                    <img class="w-12 h-12 rounded-full shadow-xl" src="{{ getPicture('profile', Auth::user()->photo_url) }}" alt="">
                 @else
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 rounded-full p-3 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                     </svg>
                 @endif
-                <button type="button" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button type="button" id="change-button" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   Change
                 </button>
               </div>
             </div>
           </div>
+
+          <input type="file" name="photo_url" id="photo-url" class="hidden" accept="image/*">
   
         <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
             <label for="name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
