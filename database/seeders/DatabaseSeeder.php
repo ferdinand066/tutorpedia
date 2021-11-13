@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\TutorClassDetail;
 use App\Models\University;
+use App\Models\Withdraw;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -32,7 +33,12 @@ class DatabaseSeeder extends Seeder
             TutorClassSeeder::class,
             TutorClassDetailSeeder::class,
             FollowerSeeder::class,
-            ClassRejectReasonSeeder::class
+        ]);
+
+        $this->call([
+            ClassRejectReasonSeeder::class,
+            DepositSeeder::class,
+            WithdrawSeeder::class
         ]);
     }
 }

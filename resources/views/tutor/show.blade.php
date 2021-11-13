@@ -7,7 +7,7 @@
                 <img src="{{ $class->course->major->photo_url }}" alt="" class="w-full h-48 sm:h-72 object-cover rounded-t">
                 <div class="absolute bottom-2 right-2">
                     @if($class->user->photo_url !== null)
-                        <img class="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex-shrink-0" src="{{ $class->user->photo_url }}" alt="">
+                        <img class="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex-shrink-0" src="{{ getPicture('profile', $class->user->photo_url) }}" alt="">
                     @else
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 sm:w-16 sm:h-16 rounded-full p-2 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
@@ -99,6 +99,7 @@
                             </li>
                         @endforeach
                     </ul>
+                    @can('manage-data')
                     <form action="{{ route('admin.reject.store') }}" method="post">
                         @csrf
                         <input type="hidden" name="tutor_class_id" value="{{ $class->id }}">
@@ -114,6 +115,7 @@
                             </button>
                         </div>
                     </form>
+                    @endcan
                 </div>
             </div>
             @endif
@@ -196,7 +198,7 @@
             <h1 class="text-lg sm:text-xl font-bold">Tutor Information</h1>
             <div class="flex content-center justify-center">
                 @if($class->user->photo_url !== null)
-                    <img class="w-32 h-32 rounded-full shadow-xl" src="{{ $class->user->photo_url }}" alt="">
+                    <img class="w-32 h-32 rounded-full shadow-xl" src="{{  getPicture('profile', $class->user->photo_url)  }}" alt="">
                 @else
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 rounded-full p-3 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
@@ -266,8 +268,8 @@
                     </div>
                     @foreach ($socials as $key => $social)
                         <div class="mt-1 text-sm text-gray-900">
-                            <span class="capitalize">{{ $key }} : </span>
-                            <a href="{{ $social }}">{{ $social }}</a>
+                            <span class="capitalize font-medium">{{ $key }} : </span>
+                            <a class="break-all" href="{{ $social }}">{{ $social }}</a>
                         </div>
                     @endforeach
                 </div>

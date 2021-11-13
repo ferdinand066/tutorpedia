@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Deposit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DepositController extends Controller
 {
@@ -14,19 +15,9 @@ class DepositController extends Controller
      */
     public function index()
     {
-        //
+        return view('deposit.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -35,51 +26,14 @@ class DepositController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'balance' => 'integer|required'
+        ]);
+
+        $validated['user_id'] = Auth::user()->id;
+        
+        Deposit::create($validated);
+        return redirect()->route('home');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Deposit $deposit)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Deposit $deposit)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Deposit $deposit)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Deposit $deposit)
-    {
-        //
-    }
 }

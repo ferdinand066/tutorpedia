@@ -4,7 +4,7 @@
             <img src="{{ $course->major->photo_url }}" class="h-60 w-full object-cover rounded-t" alt="">
             <div class="absolute bottom-2 right-2">
               @if($tutor_class->user->photo_url !== null)
-                <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" src="{{ $tutor_class->user->photo_url }}" alt="">
+                <img class="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" src="{{ getPicture('profile', $tutor_class->user->photo_url) }}" alt="">
                 @else
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 rounded-full p-1.5 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
