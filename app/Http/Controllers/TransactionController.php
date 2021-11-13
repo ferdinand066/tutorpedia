@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\TutorClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Str;
 
 class TransactionController extends Controller
 {
@@ -38,6 +41,32 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         //
+        $detail_list = Transaction::pluck('detail_id')->toArray();
+        $tutorClass = TutorClass::where([
+            ['date', '<', date('Y-m-d')],
+            ['status', '=', 1]
+        ])->whereNotIn('id', $detail_list)->get();
+
+        $result = [];
+
+        foreach($tutorClass as $class){
+            $balance = count($class->tutor_class_details) * $class->price;
+            $data['id'] = Str::uuid();
+            $data['detail_id'] = $class->id;
+            $data['balance'] = $balance;
+            $data['description'] = 'Class Owner';
+            $data['user_id'] = $class->user_id;
+            $data['created_at'] = now();
+            $data['updated_at'] = now();
+
+            updateUserBalance($class->user, $balance);
+
+            array_push($result, $data);
+        }
+
+        Transaction::insert($result);
+
+        return redirect()->back();
     }
 
     /**

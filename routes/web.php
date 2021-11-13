@@ -47,6 +47,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('teach')->as('teach.')->group(function(){
         Route::get('pending', [TutorController::class, 'pending'])->name('pending');
+        Route::get('completed', [TutorController::class, 'completed'])->name('completed');
+    });
+
+    Route::prefix('learn')->as('learn.')->group(function(){
+        Route::get('completed', [LearnController::class, 'completed'])->name('completed');
     });
 
     Route::prefix('admin')->as('admin.')->middleware('can:manage-data')->group(function(){

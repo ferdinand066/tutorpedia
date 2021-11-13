@@ -99,6 +99,7 @@
                             </li>
                         @endforeach
                     </ul>
+                    @can('manage-data')
                     <form action="{{ route('admin.reject.store') }}" method="post">
                         @csrf
                         <input type="hidden" name="tutor_class_id" value="{{ $class->id }}">
@@ -114,6 +115,7 @@
                             </button>
                         </div>
                     </form>
+                    @endcan
                 </div>
             </div>
             @endif

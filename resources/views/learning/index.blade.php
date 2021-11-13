@@ -11,6 +11,11 @@
 <div class="px-4 mt-6 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center">
         <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Closest Learning Schedule</h2>
+        <div>
+            <a href="{{ route('learn.completed') }}" class="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3">
+                Completed Class Schedule
+            </a>
+        </div>
     </div>
     @if(count($top_classes) > 0)
     <ul class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4 mt-3">

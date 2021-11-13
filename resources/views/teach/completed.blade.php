@@ -4,13 +4,13 @@
 <!-- Pinned projects -->
 <div class="px-4 mt-6 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center">
-        <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Pending Confirmation Tutor Schedule</h2>
+        <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Closest Tutor Schedule</h2>
         <div>
-            <a href="{{ route('teach.completed') }}" class="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3">
-                Completed Tutor Class
-            </a>
             <a href="{{ route('teach.index') }}" class="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3">
                 Confirmed Class
+            </a>
+            <a href="{{ route('teach.pending') }}" class="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3">
+                Pending Tutor Class
             </a>
             <a href="{{ route('class.create') }}" class="cursor-pointer inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-800 hover:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-800 sm:ml-3">
                 Create Tutor Class
@@ -71,8 +71,8 @@
                         <span class="lg:pl-2">Class</span>
                     </th>
                     <th
-                        class="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Checked at
+                        class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Members
                     </th>
                     <th
                         class="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -96,8 +96,27 @@
                             </a>
                         </div>
                     </td>
-                    <td class="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
-                        {{ (count($class->last_reject) > 0) ? date('M d, Y', strtotime($class->last_reject[0]->created_at)) : '-' }}
+                    <td class="px-6 py-3 text-sm text-gray-500 font-medium">
+                        <div class="flex items-center space-x-2">
+                            <div class="flex flex-shrink-0 -space-x-1">
+                                @foreach ($class->tutor_class_details as $key => $details)
+                                    @if($key == 4)
+                                        @break
+                                    @endif
+                                    @if($details->user->photo_url !== null)
+                                    <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white"
+                                        src="{{ getPicture('profile', $details->user->photo_url) }}"
+                                        alt="{{ $details->user->name }}">  
+                                    @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rounded-full p-1 bg-gray-200 text-indigo-800" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                    </svg>
+                                    @endif  
+                                @endforeach
+                            </div>
+
+                            <span class="flex-shrink-0 text-xs leading-5 font-medium">{{ (count($class->tutor_class_details) - 4 > 0) ? '+' . (count($class->tutor_class_details) - 4) : ''}}</span>
+                        </div>
                     </td>
                     <td
                         class="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
