@@ -10,4 +10,14 @@ class TutorClassDetail extends Model
     use HasFactory;
 
     public $incrementing = false;
+
+    public function tutor_class(){
+        return $this->belongsTo(TutorClass::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    protected $guarded = [];  
 }

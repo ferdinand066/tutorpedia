@@ -24,14 +24,27 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $random = random_int(0, 10);
+        $role = ($random < 2) ? 'Admin' : 'Member';
         return [
             'university_id' => University::inRandomOrder()->first()->id,
             'name' => $this->faker->name(),
             'google_id' => 'asd',
             'email' => $this->faker->unique()->safeEmail(),
             'password' => Hash::make('password'),
-            'phone_number' => '081213141516',
+            'phone_number' => $this->faker->phoneNumber(),
             'remember_token' => Str::random(10),
+            'social_media' => json_encode(['linkedin' => 'https://www.linkedin.com/in/ferdinand-gunawan-08aa44192/']),
+            'about' => $this->faker->realTextBetween(200, 1000),
+            'role' => $role,
+            'photo_url' => $this->faker->randomElement([
+                'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+                'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
+                'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+                'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+                'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+                'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=nkXPoOrIl0&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+            ])
         ];
     }
 

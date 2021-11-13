@@ -16,10 +16,18 @@ class CreateTutorClassesTable extends Migration
         Schema::create('tutor_classes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('course_id')->constrained();
+            $table->string('name');
             $table->foreignUuid('user_id')->constrained();
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
+            $table->integer('minimum_person');
+            $table->integer('maximum_person')->nullable();
+            $table->longText('description');
+            $table->json('requirement');
+            $table->string('link');
+            $table->bigInteger('price');
+            $table->tinyInteger('status')->default(0)->comment('0:waiting, 1:accepted');
             $table->timestamps();
         });
     }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Major;
+use App\Models\TutorClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class CourseController extends Controller
 {
@@ -12,9 +15,44 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'major_id' => 'nullable|exists:majors,id',
+            'course_id' => 'nullable|exists:courses,id',
+            'search' => 'nullable|string'
+        ]);
+
+
+        if(isset($validated['major_id']) && isset($validated['course_id'])){
+            $course = Course::find($validated['course_id']);
+            $tutor_classes = TutorClass::where([
+                ['course_id', '=', $validated['course_id']],
+                ['date', '>=', date('Y-m-d')],
+                ['status', '=', 1]
+            ])->orderBy('date')->paginate(12);
+            return view('courses.show', compact(['tutor_classes', 'course']));
+        
+        } else if (isset($validated['major_id']) && !isset($validated['course_id'])){
+            $tutor_classes = TutorClass::whereHas('course', function($query) use ($validated){
+                return $query->where('major_id', $validated['major_id']);
+            })->where([['date', '>=', date('Y-m-d')], ['status', '=', 1]])->orderBy('date')->paginate(12);
+            $major = Major::find($validated['major_id']);
+            return view('courses.show', compact(['tutor_classes', 'major']));
+        
+        } else if (isset($validated['search'])){
+            $tutor_classes = TutorClass::where([
+                ['name', 'like', '%' . $validated['search'] . '%'],
+                ['date', '>=', date('Y-m-d')],
+                ['status', '=', 1]
+            ])->orderBy('date')->paginate(12);
+            return view('courses.show', compact(['tutor_classes']));
+        } else {
+            if(!str_ends_with(URL::full(), 'course')){
+                return redirect()->route('home');
+            }
+            return view('courses.index');
+        }
     }
 
     /**
@@ -24,7 +62,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -46,7 +84,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+
     }
 
     /**
@@ -81,5 +119,16 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+    }
+
+    public function data(Request $request){
+        $validated = $request->validate([
+            'major_id' => 'exists:majors,id'
+        ]);
+
+        $courses = Course::where([['major_id', $validated['major_id']], ['name', '!=', 'Other']])->orderBy('name')->get();
+        $other = Course::where([['major_id', $validated['major_id']], ['name', '=', 'Other']])->orderBy('name')->get();
+
+        return response()->json([$courses, $other]);
     }
 }

@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <main class="sm:container sm:mx-auto sm:max-w-lg sm:mt-10">
     <div class="flex">
         <div class="w-full">
@@ -49,10 +58,10 @@
                         <label for="university_id" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
                             {{ __('University') }}:
                         </label>
-
                         <select id="university_id" 
                             class="form-select w-full @error('university_id') border-red-500 @enderror" name="university_id"
                             value="{{ old('university_id') }}" required>
+
                             @foreach ($universities as $university)
                                 <option value="{{ $university->id }}">{{ $university->name }}</option>
                             @endforeach
