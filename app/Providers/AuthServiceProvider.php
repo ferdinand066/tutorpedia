@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Rating;
 use App\Models\TutorClass;
+use App\Models\TutorClassDetail;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +32,15 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('manage-data', function (User $user) {
             return $user->role == 'Admin';
+        });
+
+        Gate::define('rating', function (User $user, TutorClass $class) {
+            $rating = TutorClassDetail::where(
+                [
+                    ['tutor_class_id', $class->id],
+                    ['user_id', $user->id]
+                ])->first();
+            return ($rating) ? true : false;
         });
 
         Gate::define('update-self-data', function(User $user, $data){

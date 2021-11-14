@@ -27,7 +27,8 @@ class TutorClassDetailController extends Controller
         if (updateUserBalance(Auth::user(), $tutor_class->price * -1)){
             TutorClassDetail::create([
                 'tutor_class_id' => $validated['tutor_class_id'],
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'status' => 1
             ]);
 
             Transaction::create([

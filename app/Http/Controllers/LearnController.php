@@ -20,6 +20,7 @@ class LearnController extends Controller
         
         $top_classes = $query->limit(4)->get();
         $classes = $query->paginate(10);
+
         return view('learning.index', compact(['top_classes', 'classes']));
     }
 

@@ -87,4 +87,8 @@ class User extends Authenticatable
     public function accepted_deposit(){
         return $this->belongsTo(User::class, 'admin_id', 'id');
     }
+
+    public function ratings(){
+        return $this->hasMany(Rating::class);
+    }
 }

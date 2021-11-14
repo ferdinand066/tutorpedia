@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
+{{-- {{ dd(getRating(Auth::user())) }} --}}
 <div class="px-4 py-4 flex flex-col sm:flex-row sm:px-6 lg:px-8 gap-10">
-     
         <div class="justify-between">
             {{-- input photos --}}
             <img class="w-32 h-32 rounded-full shadow-xl" src="{{ getPicture('profile', Auth::user()->photo_url) }}" alt="">
@@ -20,7 +20,10 @@
             <div class="flex justify-between">
                 <span class="text-black text-xs truncate">Rp.</span>
                 <span
-                    class="text-black text-xs truncate mr-4">{{ Auth::user()->balance }}</span>
+                    class="text-black text-xs truncate mr-4">{{ number_format(Auth::user()->balance,2,",","."); }}</span>
+            </div>
+            <div class="text-xs">
+                Rating : {{ round(getRating(Auth::user())[0], 2) }} / 5
             </div>
         
         </div>

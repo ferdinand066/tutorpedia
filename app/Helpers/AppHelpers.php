@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Follower;
+use App\Models\Rating;
+use App\Models\TutorClass;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -29,4 +31,16 @@ if(!function_exists('getPicture')){
         return $file;
     }
 }
+
+if(!function_exists('getRating')){
+    function getRating(User $user){
+        $list = TutorClass::where('user_id', $user->id)->pluck('id')->toArray();
+        $rating = Rating::whereIn('tutor_class_id', $list)->pluck('rating')->toArray();
+        if (count($rating)){
+            return array(array_sum($rating) / count($rating), count($rating));
+        }
+        return 'N/A';
+    }
+}
+
 

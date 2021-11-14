@@ -1,4 +1,31 @@
 @extends('layouts.app')
+@section('style-script')
+<script>
+    $(function () {
+        let ratingList = ['Poor', 'Fair', 'Average', 'Good', 'Excellent']
+
+        $('.star').on('click', function(){
+            let starId = $(this).attr('id')
+            let rating = starId.split('-')[1]
+            if (rating !== null){
+                $('#rating').val(rating)
+
+                let star = $('.star')
+                star.addClass('text-gray-300')
+                star.removeClass('text-yellow-300')
+
+                for(let i=0; i<rating; i++){
+                    star.eq(i).toggleClass('text-gray-300')
+                    star.eq(i).toggleClass('text-yellow-300')
+                }
+
+                $('#ratingDesc').text(ratingList[rating - 1])
+
+            }
+        })
+    });
+</script>
+@endsection
 @section('content')
 <div class="px-4 py-4 flex flex-col sm:flex-row sm:px-6 lg:px-8 gap-4">
     <div class="sm:w-2/3 flex flex-col gap-4">
@@ -192,6 +219,7 @@
                 </ul>
             </div>
         </div>
+
     </div>
     <div class="sm:w-1/3 flex flex-col gap-4">
         <div class="bg-white rounded shadow p-4 border-sm flex flex-col gap-4 leading-5">
@@ -285,4 +313,86 @@
         </div>
     </div>
 </div>
+@if($class->date < date('Y-m-d'))
+<div class="px-4 flex sm:px-6 lg:px-8 gap-4 w-full">
+    <div class="bg-white rounded shadow border-sm w-full">
+        <div class="p-6 leading-8 flex flex-col">
+            <h1 class="text-lg sm:text-xl font-bold">Rating</h1>
+            <p class="text-sm text-gray-500">How about the course?</p>
+            <ul class="leading-5">
+                @foreach ($class->ratings as $rating)
+                    <li class="flex align-center p-2 justify-between flex-col md:flex-row">
+                        <div class="flex flex-row space-x-4 w-full md:w-1/2">
+                            <img src="{{ getPicture('profile', $rating->user->photo_url) }}" alt="" class="w-16 h-16 rounded-full">
+                            <div class="flex flex-col md:mt-2.5" style="width: calc(100% - 6.5rem)">
+                                <div class="truncate font-semibold">{{ $rating->user->name }}</div>
+                                <div>{{ $rating->created_at }}</div>
+                                <div class="flex flex-col md:hidden space-y-2 mt-2">
+                                    <div class="flex">
+                                        @foreach (range(1, 5) as $i)
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 {{ ($i <= $rating->rating) ? 'text-yellow-300' : 'text-gray-300' }}" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                            </svg>
+                                        @endforeach
+                                    </div>
+                                    <div class="p-3 bg-gray-200 rounded">
+                                        {{ $rating->description }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden md:block w-1/2 space-y-2">
+                            <div class="flex">
+                                @foreach (range(1, 5) as $i)
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 {{ ($i <= $rating->rating) ? 'text-yellow-300' : 'text-gray-300' }}" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                    </svg>
+                                @endforeach
+                            </div>
+                            <div class="p-3 bg-gray-200 rounded">
+                                {{ $rating->description }}
+                            </div>
+                        </div>
+                        {{-- <span class="text-xs">by. {{ $reject->user->name }}</span> --}}
+                    </li>
+                @endforeach
+            </ul>
+            @can('rating', $class)
+            <form action="{{ route('rating.store') }}" method="post" class="p-2">
+                @csrf
+                <input type="hidden" name="tutor_class_id" value="{{ $class->id }}">
+                <div class="flex mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="star-1" class="star h-8 w-8 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" id="star-2" class="star h-8 w-8 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" id="star-3" class="star h-8 w-8 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" id="star-4" class="star h-8 w-8 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" id="star-5" class="star h-8 w-8 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span class="mx-2 text-sm text-gray-500" id="ratingDesc"></span>
+                </div>
+                <label for="reason" class="block text-gray-700 text-sm font-bold">
+                    {{ __('Reason') }}:
+                </label>
+                <div class="flex flex-col md:flex-row space-y-2 md:space-y-0">
+                    <input type="hidden" name="rating" id="rating" value="0">
+                    <textarea name="description" id="description" class="form-input focus:ring-indigo-800 focus:border-indigo-800 flex-1 block w-full rounded-none rounded-md sm:text-sm border-gray-300 w-3/4 @error('description') border-red-500 @enderror"></textarea>
+                    <button type="submit" class="w-20 h-10 text-center cursor-pointer inline-flex items-center px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-800 hover:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-800 md:ml-3">
+                        Submit
+                    </button>
+                </div>
+            </form>
+            @endcan
+        </div>
+    </div>
+</div>
+@endif
 @endsection
