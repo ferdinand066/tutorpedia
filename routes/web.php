@@ -7,6 +7,7 @@ use App\Http\Controllers\ClassRejectReasonController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\LearnController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TutorClassController;
@@ -75,4 +76,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('profile', UserController::class);
     Route::resource('subscribe', SubscribeController::class)->only(['index', 'store', 'destroy']);
     Route::resource('transaction', TransactionController::class);
+    Route::resource('rating', RatingController::class);
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TutorClassRequest;
 use App\Models\Course;
 use App\Models\Major;
+use App\Models\Rating;
 use App\Models\TutorClass;
 use App\Models\TutorClassDetail;
 use Illuminate\Http\Request;
@@ -66,7 +67,11 @@ class TutorClassController extends Controller
 
         $recommendations = TutorClass::inRandomOrder()
             ->limit(2)
-            ->where([['course_id', $class->course_id], ['id', '!=', $class->id]])
+            ->where([
+                ['course_id', $class->course_id], 
+                ['id', '!=', $class->id],
+                ['date', '>=', date('Y-m-d')],
+                ['status', '=', 1]])
             ->get();
         
         $tutorClassDetail = TutorClassDetail::where([['tutor_class_id', $class->id], 
@@ -80,9 +85,7 @@ class TutorClassController extends Controller
             return $query->orderBy('created_at');
         }])->find($class->id);
 
-
-
-        return view('tutor.show', compact(['class', 'recommendations', 'can_buy']));
+        return view('tutor.show', compact(['class', 'recommendations', 'can_buy',]));
     }
 
     /**
