@@ -147,9 +147,9 @@
                                     </a>
 
                                     <a href="{{ route('transaction.index') }}"
-                                        class="text-gray-600 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md">
+                                        class="{{ request()->is('transaction*') ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }} group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md">
                                         <!-- Heroicon name: outline/clock -->
-                                        <svg class="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6"
+                                        <svg class="{{ request()->is('transaction*') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6"
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -319,9 +319,9 @@
                                         </a>
 
                                         <a href="{{ route('transaction.index') }}"
-                                            class="text-gray-700 hover:text-gray-900 hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                                            class="{{ request()->is('transaction*') ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50' }} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                                             <!-- Heroicon name: outline/clock -->
-                                            <svg class="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6"
+                                            <svg class="{{ request()->is('transaction*') ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500' }} mr-3 h-6 w-6"
                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

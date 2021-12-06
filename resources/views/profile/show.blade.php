@@ -12,6 +12,24 @@
             <div class="text-xl">
                 {{ $profile->name }}
             </div>
+            @php
+                $rating = getRating($profile);
+            @endphp
+            <div class="text-sm flex flex-row content-center space-x-4 mt-1">
+                <span>
+                    Rating : {{ $rating[0] . (($rating[1] > 0) ? ' / 5 ' : '') }} 
+                </span>
+                @if($rating[1] > 0)
+                <div class="flex flex-row content-center space-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                    </svg>
+                    <span>
+                        {{ $rating[1] }}
+                    </span>
+                </div>
+                @endif
+            </div>
             {{-- Email --}}
             <div class="text-xs">
                 {{ $profile->email }}

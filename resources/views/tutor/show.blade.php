@@ -259,6 +259,29 @@
                     {{ $class->user->name }}
                 </div>
             </div>
+            @php
+                $rating_user = getRating($class->user);
+            @endphp
+            <div>
+                <div class="text-sm font-medium text-gray-500 truncate">
+                    Rating
+                </div>
+                <div class="mt-1 text-xl font-semibold text-gray-900 flex flex-row space-x-4">
+                    <span>
+                        {{ $rating_user[0] . (($rating_user[1] > 0) ? ' / 5 ' : '') }} 
+                    </span>
+                    @if($rating_user[1] > 0)
+                    <div class="flex flex-row content-center space-x-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                        </svg>
+                        <span>
+                            {{ $rating_user[1] }}
+                        </span>
+                    </div>
+                    @endif
+                </div>
+            </div>
             <div>
                 <div class="text-sm font-medium text-gray-500 truncate">
                     University
@@ -314,6 +337,7 @@
     </div>
 </div>
 @if($class->date < date('Y-m-d'))
+@if(Gate::check('rating', $class) || count($class->ratings) > 0)
 <div class="px-4 flex sm:px-6 lg:px-8 gap-4 w-full">
     <div class="bg-white rounded shadow border-sm w-full">
         <div class="p-6 leading-8 flex flex-col">
@@ -394,5 +418,6 @@
         </div>
     </div>
 </div>
+@endif
 @endif
 @endsection
